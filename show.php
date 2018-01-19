@@ -6,7 +6,7 @@
  define("DB_HOST",'m60mxazb4g6sb4nn.chr7pe7iynqr.eu-west-1.rds.amazonaws.com'); //Host base de datos MySql
  define("DB_USER", 'g48fqaog7yhlic5p'); //Nombre de la base de datos
  define("DB_PASS" , 'l4l4wkcad1im3kbg'); //Contraseña de la base de datos MySql
- define("DB_NAME" , 'yw8uospcgbz3woi1 '); //Nombre de la base de datos server final
+ define("DB_NAME" , 'yw8uospcgbz3woi1'); //Nombre de la base de datos server final
 
 
  $con=mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME) or die("problemas con conexion server");
