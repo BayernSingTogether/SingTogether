@@ -1,1 +1,8 @@
-<?php echo "Hola mundo"; ?>
+<?php 
+
+echo "Hola mundo"; 
+
+echo "Spain is different"; 
+
+
+?>
