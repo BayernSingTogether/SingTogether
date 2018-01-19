@@ -4,13 +4,13 @@
  define("DB_PASS" , 'l4l4wkcad1im3kbg'); //Contraseña de la base de datos MySql
  define("DB_NAME" , 'yw8uospcgbz3woi1'); //Nombre de la base de datos server final
 
-
- $con=mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME) or die("problemas con conexion server");
+  $con=mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
  //mysqli_query("SET CHARACTER SET utf8");  
 //mysqli_query("SET NAMES utf8");
 
-     echo  PHP_EOL;
-     
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 $incidencias['appc'] = array();
 if( $con )  
