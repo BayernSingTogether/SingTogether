@@ -10,15 +10,15 @@
 
 
  $con=mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME) or die("problemas con conexion server");
+ echo $con;
 //mysqli_query("SET CHARACTER SET utf8");  
 //mysqli_query("SET NAMES utf8");
 
 $incidencias['appc'] = array();
-	echo "hola majo";
-
 if( $con )  
 {  
-
+	echo "hola majo";
+ 
 $consulta="SELECT * FROM songs ORDER BY id_sogs ASC ";
 
 $res=  mysqli_query($con, $consulta);
