@@ -1,15 +1,11 @@
 <?php
-
-
-/*mysql://g48fqaog7yhlic5p:l4l4wkcad1im3kbg@m60mxazb4g6sb4nn.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/yw8uospcgbz3woi1*/
-
  define("DB_HOST",'m60mxazb4g6sb4nn.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306'); //Host base de datos MySql
  define("DB_USER", 'g48fqaog7yhlic5p'); //Nombre de la base de datos
  define("DB_PASS" , 'l4l4wkcad1im3kbg'); //Contraseña de la base de datos MySql
  define("DB_NAME" , 'yw8uospcgbz3woi1'); //Nombre de la base de datos server final
 
 	echo "hola majo";
-
+/*
  $con=mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME) or die("problemas con conexion server");
  echo $con;
 //mysqli_query("SET CHARACTER SET utf8");  
@@ -36,6 +32,6 @@ $res=  mysqli_query($con, $consulta);
 
 header('Content-type: application/json');
 echo json_encode($incidencias);
-
+*/
 ?>
 
