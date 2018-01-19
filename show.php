@@ -9,17 +9,13 @@
  //mysqli_query("SET CHARACTER SET utf8");  
 //mysqli_query("SET NAMES utf8");
 
- if (!$con) {
-    echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
-    echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
-    echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
-    exit;
-}
+     echo  PHP_EOL;
+     
 
 $incidencias['appc'] = array();
 if( $con )  
 {  
- 
+  
 $consulta="SELECT * FROM songs ORDER BY id_sogs ASC ";
 
 $res=  mysqli_query($con, $consulta);
