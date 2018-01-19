@@ -14,10 +14,11 @@
 //mysqli_query("SET NAMES utf8");
 
 $incidencias['appc'] = array();
+	echo "hola majo";
+
 if( $con )  
 {  
-	echo "hola majo";
- 
+
 $consulta="SELECT * FROM songs ORDER BY id_sogs ASC ";
 
 $res=  mysqli_query($con, $consulta);
