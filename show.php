@@ -16,6 +16,7 @@
 $incidencias['appc'] = array();
 if( $con )  
 {  
+	echo "hola majo";
  
 $consulta="SELECT * FROM songs ORDER BY id_sogs ASC ";
 
