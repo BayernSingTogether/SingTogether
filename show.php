@@ -4,12 +4,17 @@
  define("DB_PASS" , 'l4l4wkcad1im3kbg'); //Contraseña de la base de datos MySql
  define("DB_NAME" , 'yw8uospcgbz3woi1'); //Nombre de la base de datos server final
 
-	echo "hola majo";
-/*
+
  $con=mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME) or die("problemas con conexion server");
- echo $con;
-//mysqli_query("SET CHARACTER SET utf8");  
+ //mysqli_query("SET CHARACTER SET utf8");  
 //mysqli_query("SET NAMES utf8");
+
+ if (!$con) {
+    echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
+    echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
+    echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
+    exit;
+}
 
 $incidencias['appc'] = array();
 if( $con )  
@@ -32,6 +37,6 @@ $res=  mysqli_query($con, $consulta);
 
 header('Content-type: application/json');
 echo json_encode($incidencias);
-*/
-?>
 
+?>
+ 
