@@ -31,7 +31,7 @@ class App extends Component {
   }
   
   getSongsList () {
-    axios.get('./get_song_list.php')
+    axios.get('/get_song_list.php')
     .then(function (response) {
       console.log(response)
       this.setState({
