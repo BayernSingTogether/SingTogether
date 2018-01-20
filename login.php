@@ -3,6 +3,10 @@
 require('common/config.php');
 require('common/error.php');
 
-echo $_COOKIE["user"];
+if (isset($_COOKIE["user"]) {
+    echo 'isset'.$_COOKIE["user"];
+} else {
+    echo 'nosset';
+}
 
 ?>
