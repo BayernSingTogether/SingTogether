@@ -13,7 +13,7 @@ if (!isset($_COOKIE["user"])) {
     $json['msg'] = 'cookie `user` not set yet';
 } else {
     
-    if (!isset($_GET['song_id']) {
+    if (!isset($_GET['song_id'])) {
         $json['ret'] = false;
         $json['msg'] = 'param `song_id` not set yet';
     } else {
