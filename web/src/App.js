@@ -44,7 +44,7 @@ class App extends Component {
       
       /// TEST MOCKUP
       this.setState({
-        currentTime: this.state.currentTime + 1.5
+        currentTime: ((this.audio || {}).currentTime) || 0
       })
     }, 1500);
     

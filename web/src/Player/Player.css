@@ -44,8 +44,8 @@
     width: 10px;
     margin: 0;
     bottom: -5px;
-    -webkit-transition: left 2s;
-    transition: left 2s;
+    -webkit-transition: left 1.5s;
+    transition: left 1.5s;
 }
 
 .playing__lyrics__scroll {
