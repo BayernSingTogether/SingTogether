@@ -26,8 +26,8 @@ class Player extends Component {
   }
   
   downloadSongAndLyrics (songData) {
-    downloadSong(`/public/${songData.song_file}`)
-    downloadLyrics(`/public/${songData.song_lyric}`)
+    this.downloadSong(`/public/${songData.song_file}`)
+    this.downloadLyrics(`/public/${songData.song_lyric}`)
   }
 
   downloadSong (url) {
@@ -38,8 +38,10 @@ class Player extends Component {
       this.audio.src = song
       this.audio.play()
       
-      const time = performance.timing.navigationStart + performance.now()
+      const time = performance.timing.navigationStart + performance.now() - this.props.playingStarted
       this.audio.currentTime = time / 1000
+      
+      console.log('Started at ', time, 'server time', this.props.playingStarted, 'local time', performance.timing.navigationStart + performance.now())
     })
     .catch((error) => {
       console.log(error)
