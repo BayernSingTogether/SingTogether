@@ -19,16 +19,15 @@ if (!isset($_COOKIE["user"])) {
         $query = "SELECT LAST_INSERT_ID()";
         $res   = $conn->query($query);
         $row   = $res->fetch(); 
-        print_r($row);
         $json['ret'] = true;
-        $json['msg'] = 'test';
-        #setcookie("cookie_name", "cookie_value", time() + 99 * 365 * 24 * 3600);
+        $json['msg'] = 'cookie user set successfully';
+        setcookie("user", $row[0], time() + 99 * 365 * 24 * 3600);
     } catch(PDOException $e) {
         $json['ret'] = false;
         $json['msg'] = $e->getMessage();
     }
-    
-    
+    $conn = null;
+
 } else {
     $json['ret'] = true;
     $json['msg']    = 'cookie user already exist';
