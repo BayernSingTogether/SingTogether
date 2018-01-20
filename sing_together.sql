@@ -15,13 +15,14 @@ CREATE TABLE `song` (
   `song_id`     INT(11)      NOT NULL AUTO_INCREMENT,
   `song_length` INT(11)      NOT NULL,
   `song_name`   VARCHAR(100) NOT NULL,
+  `song_artist` VARCHAR(100) NOT NULL,
   `song_file`   VARCHAR(100) NOT NULL,
   `song_lyric`  VARCHAR(100) NOT NULL,
   PRIMARY KEY (`song_id`)
 ) CHARSET=utf8;
 
-INSERT INTO `song`(song_length, song_name, song_file, song_lyric) VALUES(225, 'Forever Number One', 'Forever Number One.mp3', 'Forever Number One.lrc');
-INSERT INTO `song`(song_length, song_name, song_file, song_lyric) VALUES(187, 'Lemon Tree'        , 'Lemon Tree.mp3'        , 'Lemon Tree.lrc'        );
+INSERT INTO `song`(song_length, song_name, song_artist, song_file, song_lyric) VALUES(225, 'Forever Number One', 'FC Bayern München', 'Forever Number One.mp3', 'Forever Number One.lrc');
+INSERT INTO `song`(song_length, song_name, song_artist, song_file, song_lyric) VALUES(187, 'Lemon Tree'        , 'Fools Garden'     , 'Lemon Tree.mp3'        , 'Lemon Tree.lrc'        );
 
 DROP TABLE IF EXISTS `room`;
 CREATE TABLE `room` (

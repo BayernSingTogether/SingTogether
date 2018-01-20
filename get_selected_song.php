@@ -17,8 +17,6 @@ try {
     $json['ret'] = true;
     $json['msg'] = 'get the selected song successfully';
     $json['selected_song_id'] = $row[0];
-    if ($json['selected_song_id'] == NULL)
-        $json['selected_song_id'] = 1;
 } catch(PDOException $e) {
     $json['ret'] = false;
     $json['msg'] = $e->getMessage();
