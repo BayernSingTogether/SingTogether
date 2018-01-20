@@ -60,7 +60,7 @@ class App extends Component {
     axios.get('/api/v1/get_playing_song.php')
     .then((response) => {
       this.setState({
-        playingStarted: parseInt((response.data || {}).soom_playing_song_timestrap, 10),
+        playingStarted: parseInt((response.data || {}).room_playing_song_timestrap, 10),
         playingSong: parseInt((response.data || {}).room_playing_song_id)
       })
     })
@@ -97,21 +97,6 @@ class App extends Component {
             currentTime={this.state.currentTime}
             currentSong={this.state.songs.find((item) => (item.song_id === this.state.playingSong)) || {}}
             playingStarted={this.state.playingStarted}
-            lyrics={[
-              [1, 'Hey there'],
-              [2, 'I\'m sebas'],
-              [4, 'I\'m amazing'],
-              [5, 'I have stickers on my laptop'],
-              [8, 'But what stickers'],
-              [12, 'They are not normal'],
-              [13, 'THEY'],
-              [14, 'ARE'],
-              [15, 'FIRKIN'],
-              [16, 'GITHUB'],
-              [17, 'STICKERS'],
-              [18, '!!!!!!!'],
-              [19, 'men'],
-            ]}
           />
         </div>
       );

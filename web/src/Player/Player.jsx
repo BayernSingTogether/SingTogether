@@ -11,15 +11,8 @@ class Player extends Component {
     this.downloadSong = this.downloadSong.bind(this)
     this.downloadLyrics = this.downloadLyrics.bind(this)
     
-    let currentLine = false
-    this.props.lyrics.forEach((item, i) => {
-      if (currentLine === false && item[0] > this.props.currentTime) {
-        currentLine = i
-      }
-    })
-    
     this.state = {
-      currentLine,
+      currentLine: 0,
       lyrics: [],
       currentTime: 0,
     }
@@ -35,18 +28,18 @@ class Player extends Component {
   }
 
   downloadSong (url) {
-    axios.get(url)
+    axios.get(url, { responseType: 'blob' })
     .then((response) => {
       const song = window.URL.createObjectURL(response.data)
-      console.log('song', response.data, song)
       
       this.audio.src = song
       this.audio.play()
       
       const time = performance.timing.navigationStart + performance.now() - this.props.playingStarted
-      this.audio.currentTime = time / 1000
       
       console.log('Started at ', time, 'server time', this.props.playingStarted, 'local time', performance.timing.navigationStart + performance.now())
+      
+      this.audio.currentTime = time / 1000
     })
     .catch((error) => {
       console.log(error)
@@ -60,8 +53,16 @@ class Player extends Component {
 
     axios.get(url)
     .then((response) => {
+      let currentLine = false
+      response.data.forEach((item, i) => {
+        if (currentLine === false && item[0] > this.props.currentTime) {
+          currentLine = i
+        }
+      })
+
       this.setState({
-        lyrics: response.data || []
+        lyrics: response.data || [],
+        currentLine,
       })
     })
     .catch((error) => {
@@ -72,26 +73,10 @@ class Player extends Component {
   
   shouldComponentUpdate (nextProps, nextState) {
     let shouldUpdate = false
-    let found = false
-    nextProps.lyrics.forEach((item, i) => {
-      if (found === false && item[0] >= nextProps.currentTime) {
-        found = true
-        if (this.state.currentLine !== i) {
-          shouldUpdate = true
-          this.setState({
-            currentLine: i,
-          })
-        }
-      }
-    })
     
     if (nextProps.currentSong.id !== this.props.currentSong.id) {
       shouldUpdate = true
       this.downloadSongAndLyrics(nextProps.currentSong)
-    }
-
-    if (nextProps.lyrics.length !== this.props.lyrics.length) {
-      shouldUpdate = true
     }
     
     return shouldUpdate
@@ -100,7 +85,7 @@ class Player extends Component {
   render() {
     return (
       <nav class="playing">
-        <audio ref={(ref) => (this.audio = ref)}/>
+        <audio ref={(ref) => (this.audio = ref)} />
         <div class="playing__song">
           <div class="playing__artist">{this.props.currentSong.song_artist}</div>
           <div class="playing__name">{this.props.currentSong.song_name}</div>
@@ -108,7 +93,7 @@ class Player extends Component {
         </div>
         <div class="playing__lyrics">
           <div class="playing__lyrics__scroll" style={{ marginTop: 20-29*this.state.currentLine }}>
-            {this.props.lyrics.map((item, i) => {
+            {this.state.lyrics.map((item, i) => {
               if (this.state.currentLine === i) {
                 return (
                   <div key={i} class="playing__lyrics__line playing__lyrics__line--current">{item[1]}</div>
