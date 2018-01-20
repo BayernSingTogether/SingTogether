@@ -29,7 +29,8 @@ try {
     $song_length = $row['song_length'];
     
     
-    
+    echo $song_length * 1000 + $soom_playing_song_timestrap.'\n';
+    echo get_millisecond();
     if ($song_length * 1000 + $soom_playing_song_timestrap > get_millisecond()) {
         echo 'update playing song';
         $query = "SELECT user_vote,count(*) FROM user GROUP BY user_vote ORDER BY count(*) DESC limit 1";
