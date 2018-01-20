@@ -23,16 +23,18 @@ CREATE TABLE `song` (
 
 INSERT INTO `song`(song_length, song_name, song_artist, song_file, song_lyric) VALUES(225, 'Forever Number One', 'FC Bayern München', 'Forever Number One.mp3', 'Forever Number One.lrc');
 INSERT INTO `song`(song_length, song_name, song_artist, song_file, song_lyric) VALUES(187, 'Lemon Tree'        , 'Fools Garden'     , 'Lemon Tree.mp3'        , 'Lemon Tree.lrc'        );
+INSERT INTO `song`(song_length, song_name, song_artist, song_file, song_lyric) VALUES(10  , 'none'              , 'none'             , 'none.mp3'              , 'none.lrc'              );
 
 DROP TABLE IF EXISTS `room`;
 CREATE TABLE `room` (
   `room_id`                     INT(11) NOT NULL AUTO_INCREMENT,
   `room_playing_song_id`        INT(11) NOT NULL,
-  `soom_playing_song_timestrap` INT     NOT NULL,
+  `room_playing_song_timestrap` BIGINT  NOT NULL,
+  `room_next_song_id`           INT(11) NOT NULL,
   PRIMARY KEY (`room_id`)
 ) CHARSET=utf8;
 
-INSERT INTO `room`(room_playing_song_id, soom_playing_song_timestrap) VALUES(1, 0);
+INSERT INTO `room`(room_playing_song_id, room_playing_song_timestrap, room_next_song_id) VALUES(1, 0, 1);
 
 
 

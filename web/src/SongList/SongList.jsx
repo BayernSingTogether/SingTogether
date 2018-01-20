@@ -7,7 +7,7 @@ class SongList extends Component {
       <article>
         <ul class="list">
           {this.props.songs
-            .sort((a, b) => (b.votes - a.votes))
+            .sort((a, b) => (b.song_vote - a.song_vote))
             .map((item, i) => {
             return (
               <li
