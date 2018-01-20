@@ -1,7 +1,7 @@
 <?php
 
 require('config.php');
-require(ROOT_PATH.'common/error.php');
+require(ROOT_PATH.'/common/error.php');
 
 $json = array();#
 
