@@ -19,7 +19,7 @@ try {
         $local_row   = $local_res->fetch();
         
         if ($local_row[0] == NULL)
-            $local_row[0] = 0
+            $local_row[0] = 0;
         
         array_push($json['list'], array(
             'song_id'     => $row['song_id'], 
