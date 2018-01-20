@@ -75,7 +75,7 @@ class App extends Component {
       const playingSong = parseInt((response.data || {}).room_playing_song_id)
       const nextSong = parseInt((response.data || {}).room_next_song_id)
       
-      if (playingSong !== this.state.playingSong && this.state.songs.length !== 0) {
+      if (playingStarted !== this.state.playingStarted && this.state.songs.length !== 0) {
         if (playingSong === this.state.nextSong) {
           this.setState({
             lyrics: this.state.nextLyrics
