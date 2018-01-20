@@ -26,6 +26,7 @@ try {
             'song_file'   => $row['song_file'],
             'song_lyric'  => $row['song_lyric'],
             'song_vote'   => $local_row[0]
+            #sdlkfjk
         ));
     }
     $json['ret'] = true;
