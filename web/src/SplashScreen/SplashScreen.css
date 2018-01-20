@@ -4,4 +4,5 @@
   height: 100%;
   background-image: url(/public/SplashImage.png);
   cursor: pointer;
+  background-size: cover;
 }
