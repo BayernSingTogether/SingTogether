@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- note: for support on older browsers, you will need to load es5-shim and es6-shim -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.23.0/es6-shim.min.js"></script>
+
+  <script src="/timesync/timesync.js"></script>
+</head>
+
+<body>
+
+<audio id="myAudio">
+  <source src="" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<p>Click the buttons to play or pause the audio.</p>
+
+<button onclick="playAudio()" type="button">Play Audio</button>
+<button onclick="pauseAudio()" type="button">Pause Audio</button>
+
+<h5 id="tCont"></h5>
+
+<script>
+
+  var x = document.getElementById("myAudio");
+
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        x.src = window.URL.createObjectURL(this.response);
+    }
+  };
+  xhr.open('GET', 'test.mp3');
+  xhr.responseType = 'blob';
+  xhr.send();
+
+  // create a timesync instance
+  var ts = timesync.create({
+    server: '/timesync',
+    interval: 10000
+  });
+
+  // get notified on changes in the offset
+  ts.on('change', function (offset) {
+    document.getElementById('tCont').innerHTML += 'changed offset: ' + offset + ' ms<br>';
+  });
+
+
+  var nowTrue = new Date(ts.now());
+
+  // get synchronized time
+  setInterval(function () {
+    nowTrue = new Date(ts.now());
+    // var nowBrowser = new Date();
+    document.getElementById('tCont').innerHTML += 'nowTrue: ' + nowTrue.toISOString() + ' ms<br>';
+    // document.getElementById('tCont').innerHTML += 'nowBrowser: ' + nowBrowser.toISOString() + ' ms<br>';
+    // if (nowTrue.getSeconds() % 10 == 0) {
+    //   document.getElementById("myAudio").play();
+    // }
+  }, 1000);
+
+  function playAudio() {
+      nowTrue = new Date(ts.now());
+      x.currentTime = nowTrue.getSeconds() + nowTrue.getMilliseconds() / 1000
+      console.log(x.currentTime)
+      x.play();
+  }
+
+  function pauseAudio() {
+      x.pause();
+  }
+
+</script>
+
+</body>
+
+</html>
