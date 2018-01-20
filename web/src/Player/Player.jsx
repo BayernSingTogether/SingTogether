@@ -23,6 +23,10 @@ class Player extends Component {
       lyrics: [],
       currentTime: 0,
     }
+
+    if (this.props.currentSong) {
+      this.downloadSongAndLyrics(this.props.currentSong)
+    }
   }
   
   downloadSongAndLyrics (songData) {
