@@ -18,6 +18,9 @@ try {
         $local_res   = $conn->query($local_query);
         $local_row   = $local_res->fetch();
         
+        if ($local_row[0] == NULL)
+            $local_row[0] = 0
+        
         array_push($json['list'], array(
             'song_id'     => $row['song_id'], 
             'song_length' => $row['song_length'],
