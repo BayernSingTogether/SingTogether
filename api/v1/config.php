@@ -2,6 +2,7 @@
 
 ini_set('display_errors', 'On');
 define('ROOT_PATH',dirname(__FILE__));
+header('Content-type: application/json');
 
 class Setting
 {
