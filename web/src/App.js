@@ -60,7 +60,7 @@ class App extends Component {
     axios.get('/api/v1/get_playing_song.php')
     .then((response) => {
       this.setState({
-        playingStarted: parseInt((response.data || {}).soom_playing_song_timestrap, 10),
+        playingStarted: parseInt((response.data || {}).room_playing_song_timestrap, 10),
         playingSong: parseInt((response.data || {}).room_playing_song_id)
       })
     })

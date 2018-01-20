@@ -85,7 +85,7 @@ class Player extends Component {
   render() {
     return (
       <nav class="playing">
-        <audio ref={(ref) => (this.audio = ref)}/>
+        <audio ref={(ref) => (this.audio = ref)} />
         <div class="playing__song">
           <div class="playing__artist">{this.props.currentSong.song_artist}</div>
           <div class="playing__name">{this.props.currentSong.song_name}</div>
