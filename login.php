@@ -8,10 +8,12 @@ define("DB_NAME" , 'yw8uospcgbz3woi1'); //Nombre de la base de datos server fina
 
 #require('common/error.php');
 
-if (isset($_COOKIE["user"]) {
-    echo 'isset'.$_COOKIE["user"];
-} else {
-    echo 'nosset';
-}
+echo 'login.php';
+
+#if (isset($_COOKIE["user"]) {
+#    echo 'isset'.$_COOKIE["user"];
+#} else {
+#    echo 'nosset';
+#}
 
 ?>
