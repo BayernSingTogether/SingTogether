@@ -1,14 +1,9 @@
 <?php
-
-require('config.php');
-require(ROOT_PATH.'/common/error.php');
-
-header('Content-type: application/json');
+require('global.php');
 $json = array();
-
 if (!isset($_COOKIE['user'])) {
     try {
-        $conn  = new PDO('mysql:host='.Setting::db_host.';dbname='.Setting::db_name, Setting::db_user, Setting::db_pass);
+        $conn  = new PDO('mysql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = 'INSERT INTO user(user_vote) VALUES(1)';
         $res   = $conn->query($query);
@@ -18,19 +13,15 @@ if (!isset($_COOKIE['user'])) {
         $json['ret'] = true;
         $json['msg'] = 'cookie `user='.$row[0].'` set successfully';
         setcookie('user', $row[0], time() + 99 * 365 * 24 * 3600);
-        $conn  = null;
     } catch(PDOException $e) {
         $json['ret'] = false;
         $json['msg'] = $e->getMessage();
     }
-    
 } else {
     $json['ret'] = true;
     $json['msg'] = 'cookie `user='.$_COOKIE["user"].'` already exist';
 }
-
 echo json_encode($json, JSON_UNESCAPED_UNICODE);
-
 ?>
 
 
