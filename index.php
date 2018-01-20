@@ -30,9 +30,6 @@ if (!isset($_COOKIE["user"])) {
     $json['msg'] = 'cookie `user='.$_COOKIE["user"].'` already exist';
 }
 
-
-header('Content-type: application/json');
-
 echo file_get_contents('web/build/index.html');
 
 ?>
