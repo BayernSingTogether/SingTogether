@@ -4,9 +4,11 @@ $json = array();
 try {
     $conn  = new PDO('mysql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = 'SELECT user_vote,count(*) FROM user GROUP BY user_vote ORDER BY count(*) DESC limit 1';
-    $res   = $conn->query($query);
+    $query = 'SELECT user_vote,count(*) FROM user WHERE user_vote IS NOT NULL GROUP BY user_vote ORDER BY count(*) DESC limit 1';
+    $res   = $conn->query($query);#
     $row = $res->fetch();
+    if ($row[0] == NULL)
+        $row[0] = 1;
     $json['ret'] = true;
     $json['msg'] = 'get the selected song successfully';
     $json['selected_song_id'] = $row[0];
