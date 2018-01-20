@@ -8,13 +8,11 @@ $DB_NAME = 'yw8uospcgbz3woi1'; //Nombre de la base de datos server final
 
 $json = array();
 
-function getMillisecond() {
+function get_millisecond() {
     list($t1, $t2) = explode(' ', microtime());
     return (float)sprintf('%.0f',(floatval($t1)+floatval($t2))*1000);
 }
 
-echo getMillisecond();
-/*
 try {
     $conn  = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASS);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,7 +28,18 @@ try {
     $row   = $res->fetch();
     $song_length = $row['song_length'];
     
-    if ($song_length * 1000 + $soom_playing_song_timestrap >  )
+    if ($song_length * 1000 + $soom_playing_song_timestrap > get_millisecond()) {
+        //update playing song
+        $query = "SELECT user_vote,count(*) FROM user GROUP BY user_vote ORDER BY count(*) DESC limit 1";
+        $res   = $conn->query($query);
+        $row   = $res->fetch();
+        
+        $query = "UPDATE room SET room_playing_song_id = ".$row[0].", soom_playing_song_timestrap = ".get_millisecond()." WHERE room_id = 1";
+        $res   = $conn->query($query);
+    }
+    
+    $query = "UPDATE room SET room_playing_song_id = ".$row[0].", soom_playing_song_timestrap = ".get_millisecond()." WHERE room_id = 1";
+    $res   = $conn->query($query);
     
     $json['ret'] = true;
     $json['msg'] = 'cookie `user='.$row[0].'` set successfully';
