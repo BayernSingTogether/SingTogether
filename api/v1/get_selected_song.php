@@ -7,6 +7,8 @@ try {
     $query = 'SELECT user_vote,count(*) FROM user GROUP BY user_vote ORDER BY count(*) DESC limit 1';
     $res   = $conn->query($query);
     $row = $res->fetch();
+    if ($row[0] == NULL)
+        $row[0] = 1;
     $json['ret'] = true;
     $json['msg'] = 'get the selected song successfully';
     $json['selected_song_id'] = $row[0];
