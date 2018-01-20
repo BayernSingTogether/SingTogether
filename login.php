@@ -12,7 +12,7 @@ if (!isset($_COOKIE["user"])) {
     try {
         $conn  = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASS);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "insert into users values()";
+        $query = "insert into user values()";
         $res   = $conn->query($query);
         $query = "SELECT LAST_INSERT_ID()";
         $res   = $conn->query($query);
