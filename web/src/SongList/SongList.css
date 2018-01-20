@@ -1,0 +1,33 @@
+
+.list {
+    width: 100%;
+}
+
+.list__item {
+    padding: 12px 45px;
+/*     border-bottom: 1px solid #ffe5dc; */
+    background-color: #0066b2;
+    color: white;
+}
+
+/* .list__item:nth-child(2n) {
+    background-color: white;
+    color: black;
+} */
+
+.list__item:last-child {
+    border-bottom: none;
+}
+
+.list__item__artist {
+
+}
+
+.list__item__name {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
+.list__bottom {
+    height: 170px;
+}
