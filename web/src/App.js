@@ -165,11 +165,10 @@ class App extends Component {
   
   playAudio () {
     console.log('server time', this.state.playingStarted, 'local time', this.serverTime)
-    window.myFtime = this.serverTime
     
     this.audio.play()
     
-    const time = this.serverTime.UTC() - this.state.playingStarted
+    const time = this.serverTime.valueOf() - this.state.playingStarted
     this.audio.currentTime = time / 1000
   }
 
