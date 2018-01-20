@@ -12,7 +12,7 @@ if (!isset($_COOKIE["user"])) {
     $json['ret'] = false;
     $json['msg'] = 'cookie `user` not set yet';
 } else {
-    
+    /*
     if (!isset($_GET['song_id']) {
         $json['ret'] = false;
         $json['msg'] = 'param `song_id` not set yet';
@@ -29,7 +29,7 @@ if (!isset($_COOKIE["user"])) {
             $json['msg'] = $e->getMessage();
         }
         $conn = null;
-    }
+    }*/
 }
 
 header('Content-type: application/json');
