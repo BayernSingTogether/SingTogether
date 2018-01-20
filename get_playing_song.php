@@ -28,11 +28,7 @@ try {
     $row   = $res->fetch();
     $song_length = $row['song_length'];
     
-    
-    echo $song_length * 1000 + $soom_playing_song_timestrap.'\n';
-    echo get_millisecond();
-    if ($song_length * 1000 + $soom_playing_song_timestrap > get_millisecond()) {
-        echo 'update playing song';
+    if ($song_length * 1000 + $soom_playing_song_timestrap < get_millisecond()) {
         $query = "SELECT user_vote,count(*) FROM user GROUP BY user_vote ORDER BY count(*) DESC limit 1";
         $res   = $conn->query($query);
         $row   = $res->fetch();
