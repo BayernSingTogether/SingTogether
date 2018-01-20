@@ -37,7 +37,8 @@ class Player extends Component {
   downloadSong (url) {
     axios.get(url)
     .then((response) => {
-      const song = URL.createObjectURL(response.data)
+      const song = window.URL.createObjectURL(response.data)
+      console.log('song', response.data, song)
       
       this.audio.src = song
       this.audio.play()
