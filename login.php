@@ -9,7 +9,6 @@ $DB_NAME = 'yw8uospcgbz3woi1'; //Nombre de la base de datos server final
 $json = array();
 
 if (!isset($_COOKIE["user"])) {
-    
     try {
         $conn  = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASS);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -17,7 +16,7 @@ if (!isset($_COOKIE["user"])) {
         $res   = $conn->query($query);
         $query = "SELECT LAST_INSERT_ID()";
         $res   = $conn->query($query);
-        $row   = $res->fetch(); 
+        $row   = $res->fetch();
         $json['ret'] = true;
         $json['msg'] = 'cookie user set successfully';
         setcookie("user", $row[0], time() + 99 * 365 * 24 * 3600);
@@ -26,11 +25,11 @@ if (!isset($_COOKIE["user"])) {
         $json['msg'] = $e->getMessage();
     }
     $conn = null;
-
 } else {
     $json['ret'] = true;
-    $json['msg']    = 'cookie user already exist';
+    $json['msg'] = 'cookie user already exist';
 }
+
 
 header('Content-type: application/json');
 echo json_encode($json, JSON_UNESCAPED_UNICODE);
