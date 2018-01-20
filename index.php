@@ -33,6 +33,6 @@ if (!isset($_COOKIE["user"])) {
 
 header('Content-type: application/json');
 
-require('web/build/index.html');
+echo file_get_contents('web/build/index.html');
 
 ?>
