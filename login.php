@@ -7,7 +7,6 @@ $DB_PASS = 'l4l4wkcad1im3kbg'; //Contrase?a de la base de datos MySql
 $DB_NAME = 'yw8uospcgbz3woi1'; //Nombre de la base de datos server final
 
 $json = array();
-echo '?';
 
 if (!isset($_COOKIE["user"])) {
     
