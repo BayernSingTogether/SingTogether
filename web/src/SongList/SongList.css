@@ -9,6 +9,11 @@
 /*     border-bottom: 1px solid #ffe5dc; */
     background-color: #0066b2;
     color: white;
+    cursor: pointer;
+}
+
+.list__item--voted {
+    background-color: #014271;
 }
 
 /* .list__item:nth-child(2n) {

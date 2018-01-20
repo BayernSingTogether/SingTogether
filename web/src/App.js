@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import request from 'request'
+import axios from 'axios'
 
 import SplashScreen from './SplashScreen/SplashScreen'
 import SongList from './SongList/SongList'
@@ -13,10 +14,17 @@ class App extends Component {
   constructor (props) {
     super(props)
     
+    this.getSongsList = this.getSongsList.bind(this)
+    this.postVote = this.postVote.bind(this)
+    this.getPlayingSong = this.getPlayingSong.bind(this)
+    
     this.state = {
       currentView: 'splashscreen',
       currentTime: 0,
+      currentVote: null,
       songs: [],
+      playingStarted: null,
+      playingSong: null,
     }
 
     const x = setInterval(() => {
@@ -27,17 +35,46 @@ class App extends Component {
         currentTime: this.state.currentTime + 1
       })
     }, 1000);
+    
+    this.getPlayingSong();
   }
   
   getSongsList () {
-    request
-      .get('/get_song_list.php')
-      .on('response', (response) => {
-        console.log(response)
-        this.setState({
-          songs: JSON.parse(response.body)
-        })
+    axios.get('/get_song_list.php')
+    .then((response) => {
+      this.setState({
+        songs: ((response.data || {}).list || [])
+          .map((item) => {
+            item.song_vote = parseInt(item.song_vote, 10)
+            item.song_id = parseInt(item.song_id, 10)
+            return item
+          })
       })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+  
+  getPlayingSong () {
+    axios.get('/get_playing_song.php')
+    .then((response) => {
+      this.setState({
+        playingStarted: parseInt((response.data || {}).soom_playing_song_timestrap, 10),
+        playingSong: parseInt((response.data || {}).room_playing_song_id)
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+  
+  postVote (songId) {
+    axios.get(`/vote.php?song_id=${songId}`)
+
+    this.setState({
+      currentVote: songId
+    })
   }
 
   render() {
@@ -53,10 +90,12 @@ class App extends Component {
           <SongList
             onStream={() => ( this.setState({ currentView: 'streaming' }) ) }
             songs={this.state.songs}
+            currentVote={this.state.currentVote}
+            postVote={this.postVote}
           />
           <Player
             currentTime={this.state.currentTime}
-            currentSong={{ id: 1, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 0 }}
+            currentSong={this.state.songs.find((item) => (item.song_id === this.state.playingSong))}
             lyrics={[
               [1, 'Hey there'],
               [2, 'I\'m sebas'],
