@@ -1,6 +1,6 @@
 <?php
 
-#require('common/config.php');
+require('common/config.php');
 #require('common/error.php');
 
 if (isset($_COOKIE["user"]) {
