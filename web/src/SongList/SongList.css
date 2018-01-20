@@ -4,10 +4,15 @@
 }
 
 .list__item {
-    padding: 12px 45px;
+    display: flex;
+    padding: 12px 45px 12px 10px;
 /*     border-bottom: 1px solid #ffe5dc; */
     background-color: #0066b2;
     color: white;
+}
+
+.list__item--voted {
+    background-color: #014271;
 }
 
 /* .list__item:nth-child(2n) {
@@ -30,4 +35,19 @@
 
 .list__bottom {
     height: 170px;
+}
+
+.list__item__f {
+  text-align: center;
+  flex: 0 0 50px;
+}
+.list__item__position {
+  font-size: 20px;
+}
+.list__item__votes {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+}
+.list__item__s {
+  flex: 1;
 }

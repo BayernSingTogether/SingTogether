@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import request from 'request'
+import axios from 'axios'
 
 import SplashScreen from './SplashScreen/SplashScreen'
 import SongList from './SongList/SongList'
@@ -13,9 +15,50 @@ class App extends Component {
     super(props)
     
     this.state = {
-      currentView: 'splashscreen'
+      currentView: 'splashscreen',
+      currentTime: 0,
+      currentVote: null,
+      songs: [],
     }
+
+    const x = setInterval(() => {
+      this.getSongsList()
+      
+      /// TEST MOCKUP
+      this.setState({
+        currentTime: this.state.currentTime + 1
+      })
+    }, 1000);
+    
+    this.getSongsList = this.getSongsList.bind(this)
+    this.postVote = this.postVote.bind(this)
   }
+  
+  getSongsList () {
+    axios.get('/get_song_list.php')
+    .then((response) => {
+      console.log(response)
+      this.setState({
+        songs: ((response.data || {}).list || [])
+          .map((item) => {
+            item.song_vote = parseInt(item.song_vote, 10)
+            return item
+          })
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+  
+  postVote (songId) {
+    axios.get(`/vote.php?song_id=${songId}`)
+
+    this.setState({
+      currentVote: songId
+    })
+  }
+
   render() {
     if (this.state.currentView === 'splashscreen') {
       return (
@@ -26,8 +69,31 @@ class App extends Component {
     } else if (this.state.currentView === 'songlist') {
       return (
         <div>
-          <SongList onStream={() => ( this.setState({ currentView: 'streaming' }) ) } />
-          <Player />
+          <SongList
+            onStream={() => ( this.setState({ currentView: 'streaming' }) ) }
+            songs={this.state.songs}
+            currentVote={this.state.currentVote}
+            postVote={this.postVote}
+          />
+          <Player
+            currentTime={this.state.currentTime}
+            currentSong={{ id: 1, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 0 }}
+            lyrics={[
+              [1, 'Hey there'],
+              [2, 'I\'m sebas'],
+              [4, 'I\'m amazing'],
+              [5, 'I have stickers on my laptop'],
+              [8, 'But what stickers'],
+              [12, 'They are not normal'],
+              [13, 'THEY'],
+              [14, 'ARE'],
+              [15, 'FIRKIN'],
+              [16, 'GITHUB'],
+              [17, 'STICKERS'],
+              [18, '!!!!!!!'],
+              [19, 'men'],
+            ]}
+          />
         </div>
       );
     } else if (this.state.currentView === 'streaming') {

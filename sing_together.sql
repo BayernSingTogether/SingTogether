@@ -1,40 +1,38 @@
-DROP database IF EXISTS sing_together;
-CREATE database sing_together;
+DROP database IF EXISTS yw8uospcgbz3woi1;
+CREATE database yw8uospcgbz3woi1;
 
-USE sing_together;
+USE yw8uospcgbz3woi1;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `user_name`            VARCHAR(64) NOT NULL,
-  `user_room_id_entered` INT(11)     DEFAULT NULL,
-  `user_song_id_voted`   INT(11)     DEFAULT NULL,
-  PRIMARY KEY (`user_name`)
-) CHARSET = utf8;
+  `user_id`     INT(11) NOT NULL AUTO_INCREMENT,
+  `user_vote`   INT(11) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) CHARSET=utf8;
 
 DROP TABLE IF EXISTS `song`;
-CREATE TABLE `song`(
-    `song_id`            INT(11)      NOT NULL AUTO_INCREMENT,
-    `song_name`          VARCHAR(100) NOT NULL,
-    `song_length`        INT(11)      NOT NULL,
-    `song_file`          VARCHAR(100) NOT NULL,
-    `song_lyric`         VARCHAR(100) NOT NULL,
-    PRIMARY KEY (song_id)
-) CHARSET = utf8;
+CREATE TABLE `song` (
+  `song_id`     INT(11)      NOT NULL AUTO_INCREMENT,
+  `song_length` INT(11)      NOT NULL,
+  `song_name`   VARCHAR(100) NOT NULL,
+  `song_artist` VARCHAR(100) NOT NULL,
+  `song_file`   VARCHAR(100) NOT NULL,
+  `song_lyric`  VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`song_id`)
+) CHARSET=utf8;
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `user_id`              INT(11)     NOT NULL AUTO_INCREMENT,
-  `user_name`            VARCHAR(64) NOT NULL,
-  `user_room_id_entered` INT(11)     DEFAULT NULL,
-  `user_song_id_voted`   INT(11)     DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) CHARSET = utf8;
+INSERT INTO `song`(song_length, song_name, song_artist, song_file, song_lyric) VALUES(225, 'Forever Number One', 'FC Bayern München', 'Forever Number One.mp3', 'Forever Number One.lrc');
+INSERT INTO `song`(song_length, song_name, song_artist, song_file, song_lyric) VALUES(187, 'Lemon Tree'        , 'Fools Garden'     , 'Lemon Tree.mp3'        , 'Lemon Tree.lrc'        );
 
 DROP TABLE IF EXISTS `room`;
 CREATE TABLE `room` (
-    `room_id`                    INT(11)     NOT NULL AUTO_INCREMENT,
-    `room_name`                  VARCHAR(64) NOT NULL,
-    `room_song_id_playing`       INT(11)     NOT NULL,
-    `room_song_starts_timestrap` VARCHAR(64) NOT NULL,
-    PRIMARY KEY (`user_id`)
-) CHARSET = utf8;
+  `room_id`                     INT(11) NOT NULL AUTO_INCREMENT,
+  `room_playing_song_id`        INT(11) NOT NULL,
+  `soom_playing_song_timestrap` INT     NOT NULL,
+  PRIMARY KEY (`room_id`)
+) CHARSET=utf8;
+
+INSERT INTO `room`(room_playing_song_id, soom_playing_song_timestrap) VALUES(1, 0);
+
+
+
