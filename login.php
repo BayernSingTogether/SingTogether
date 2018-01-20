@@ -18,7 +18,7 @@ if (!isset($_COOKIE["user"])) {
         $res   = $conn->query($query);
         $row   = $res->fetch();
         $json['ret'] = true;
-        $json['msg'] = 'cookie user set successfully';
+        $json['msg'] = 'cookie `user` set successfully';
         setcookie("user", $row[0], time() + 99 * 365 * 24 * 3600);
     } catch(PDOException $e) {
         $json['ret'] = false;
@@ -27,7 +27,7 @@ if (!isset($_COOKIE["user"])) {
     $conn = null;
 } else {
     $json['ret'] = true;
-    $json['msg'] = 'cookie user already exist';
+    $json['msg'] = 'cookie `user` already exist';
 }
 
 
