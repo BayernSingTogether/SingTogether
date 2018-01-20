@@ -3,7 +3,7 @@
 require('config.php');
 require(ROOT_PATH.'common/error.php');
 
-$json = array();
+$json = array();#
 
 if (!isset($_COOKIE["user"])) {
     try {
