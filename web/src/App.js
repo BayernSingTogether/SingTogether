@@ -14,11 +14,17 @@ class App extends Component {
   constructor (props) {
     super(props)
     
+    this.getSongsList = this.getSongsList.bind(this)
+    this.postVote = this.postVote.bind(this)
+    this.getPlayingSong = this.getPlayingSong.bind(this)
+    
     this.state = {
       currentView: 'splashscreen',
       currentTime: 0,
       currentVote: null,
       songs: [],
+      playingStarted: null,
+      playingSong: null,
     }
 
     const x = setInterval(() => {
@@ -30,20 +36,32 @@ class App extends Component {
       })
     }, 1000);
     
-    this.getSongsList = this.getSongsList.bind(this)
-    this.postVote = this.postVote.bind(this)
+    this.getPlayingSong();
   }
   
   getSongsList () {
     axios.get('/get_song_list.php')
     .then((response) => {
-      console.log(response)
       this.setState({
         songs: ((response.data || {}).list || [])
           .map((item) => {
             item.song_vote = parseInt(item.song_vote, 10)
+            item.song_id = parseInt(item.song_id, 10)
             return item
           })
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+  
+  getPlayingSong () {
+    axios.get('/get_playing_song.php')
+    .then((response) => {
+      this.setState({
+        playingStarted: parseInt((response.data || {}).soom_playing_song_timestrap, 10),
+        playingSong: parseInt((response.data || {}).room_playing_song_id)
       })
     })
     .catch((error) => {
@@ -77,7 +95,7 @@ class App extends Component {
           />
           <Player
             currentTime={this.state.currentTime}
-            currentSong={{ id: 1, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 0 }}
+            currentSong={this.state.songs.find((item) => (item.song_id === this.state.playingSong))}
             lyrics={[
               [1, 'Hey there'],
               [2, 'I\'m sebas'],
