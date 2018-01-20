@@ -29,11 +29,12 @@ DROP TABLE IF EXISTS `room`;
 CREATE TABLE `room` (
   `room_id`                     INT(11) NOT NULL AUTO_INCREMENT,
   `room_playing_song_id`        INT(11) NOT NULL,
-  `soom_playing_song_timestrap` BIGINT  NOT NULL,
+  `room_playing_song_timestrap` BIGINT  NOT NULL,
+  `room_next_song_id`           INT(11) NOT NULL,
   PRIMARY KEY (`room_id`)
 ) CHARSET=utf8;
 
-INSERT INTO `room`(room_playing_song_id, soom_playing_song_timestrap) VALUES(1, 0);
+INSERT INTO `room`(room_playing_song_id, room_playing_song_timestrap, room_next_song_id) VALUES(1, 0, 1);
 
 
 
