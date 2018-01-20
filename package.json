@@ -1,0 +1,24 @@
+{
+  "name": "singtogether",
+  "version": "1.0.0",
+  "description": "Sing with us with this amazing webapp",
+  "main": "tsyncServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BayernSingTogether/SingTogether.git"
+  },
+  "author": "BayernSingTogether",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BayernSingTogether/SingTogether/issues"
+  },
+  "homepage": "https://github.com/BayernSingTogether/SingTogether#readme",
+  "dependencies": {
+    "clocksync": "0.1.0-beta.4",
+    "express": "^4.16.2",
+    "timesync": "^0.4.2"
+  }
+}
