@@ -8,10 +8,10 @@ define("DB_NAME" , 'yw8uospcgbz3woi1'); //Nombre de la base de datos server fina
 
 $json = array();
 echo '?';
-/*
+
 if (!isset($_COOKIE["user"])) {
     
-    try {
+    /*try {
         $conn  = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASS);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = "insert into users values()";
@@ -25,7 +25,9 @@ if (!isset($_COOKIE["user"])) {
         $json['ret'] = false;
         $json['msg'] = $e->getMessage();
         exit();
-    }
+    }*/
+    $json['ret'] = true;
+    $json['msg'] = 'test';
     
 } else {
     $json['ret'] = true;
@@ -33,6 +35,6 @@ if (!isset($_COOKIE["user"])) {
 }
 
 header('Content-type: application/json');
-echo json_encode($json, JSON_UNESCAPED_UNICODE);*/
+echo json_encode($json, JSON_UNESCAPED_UNICODE);
 
 ?>
