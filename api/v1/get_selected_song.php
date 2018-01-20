@@ -11,7 +11,7 @@ try {
     $json['msg'] = 'get the selected song successfully';
     $json['selected_song_id'] = $row[0];
 } catch(PDOException $e) {
-    $json['ret'] = false;#
+    $json['ret'] = false;
     $json['msg'] = $e->getMessage();
 }
 echo json_encode($json, JSON_UNESCAPED_UNICODE);
