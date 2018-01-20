@@ -1,4 +1,5 @@
 <?php 
+
 $hostname="m60mxazb4g6sb4nn.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306";
 $database="yw8uospcgbz3woi1";
 $username="g48fqaog7yhlic5p";
