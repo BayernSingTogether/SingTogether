@@ -37,9 +37,6 @@ try {
         $res   = $conn->query($query);
     }
     
-    #$query = "UPDATE room SET room_playing_song_id = ".$row[0].", soom_playing_song_timestrap = ".get_millisecond()." WHERE room_id = 1";
-    #$res   = $conn->query($query);
-    
     $json['ret'] = true;
     $json['msg'] = '';
 } catch(PDOException $e) {
