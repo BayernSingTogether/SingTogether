@@ -3,3 +3,84 @@ li, ul {
     padding: 0;
     margin: 0;
 }
+
+article, body {
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.list {
+    width: 100%;
+}
+
+.list__item {
+    padding: 12px 45px;
+/*     border-bottom: 1px solid #ffe5dc; */
+    background-color: #0066b2;
+    color: white;
+}
+
+/* .list__item:nth-child(2n) {
+    background-color: white;
+    color: black;
+} */
+
+.list__item:last-child {
+    border-bottom: none;
+}
+
+.list__item__artist {
+
+}
+
+.list__item__name {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
+.list__bottom {
+    height: 400px;
+}
+
+.playing {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #034677;
+    color: white;
+    height: 400px;
+    font-size: 20px;
+}
+
+.playing__song {
+    height: 130px;
+    overflow: hidden;
+    font-size: 50px;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.playing__artist {
+    text-align: center;
+}
+
+.playing__name {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
+.playing__lyrics {
+    text-align: center;
+    overflow: hidden;
+    height: 300px;
+}
+
+.playing__lyrics__line {
+    font-size: 40px;
+}
+
+.playing__lyrics__line--current {
+    font-size: 70px;
+}
