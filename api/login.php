@@ -7,7 +7,7 @@ $json = array();
 
 if (!isset($_COOKIE['user'])) {
     try {
-        $conn  = new PDO('mysql:host='.Setting::db_host.';dbname='.Setting::db_name);
+        $conn  = new PDO('mysql:host='.Setting::db_host.';dbname='.Setting::db_name, Setting::db_username, Setting::db_password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = "INSERT INTO user(user_vote) VALUES(1)";
         $res   = $conn->query($query);
