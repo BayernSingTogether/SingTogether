@@ -15,10 +15,10 @@ if (!isset($_COOKIE["user"])) {
         $conn  = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASS);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = "insert into users values()";
-        $res   = $conn->exec($query);
+        $res   = $conn->query($query);
         $query = "SELECT LAST_INSERT_ID()";
-        $res   = $conn->exec($query);
-        $row = $res->fetch(); 
+        $res   = $conn->query($query);
+        $row   = $res->fetch(); 
         print_r($row);
         $json['ret'] = true;
         $json['msg'] = 'test';
