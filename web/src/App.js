@@ -39,7 +39,11 @@ class App extends Component {
     .then((response) => {
       console.log(response)
       this.setState({
-        songs: (response.data || {}).list || []
+        songs: ((response.data || {}).list || [])
+          .map((item) => {
+            item.song_vote = parseInt(item.song_vote, 10)
+            return item
+          })
       })
     })
     .catch((error) => {
