@@ -96,6 +96,7 @@ class App extends Component {
           <Player
             currentTime={this.state.currentTime}
             currentSong={this.state.songs.find((item) => (item.song_id === this.state.playingSong)) || {}}
+            playingStarted={this.state.playingStarted}
             lyrics={[
               [1, 'Hey there'],
               [2, 'I\'m sebas'],
