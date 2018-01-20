@@ -1,4 +1,4 @@
-<?php
+<?php/*
 require_once(dirname(dirname(__DIR__)) . '/vendor/autoload.php');
 require_once(__DIR__ . '/socket/socket.php');
 
