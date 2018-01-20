@@ -26,7 +26,7 @@ try {
         $query = 'UPDATE user SET user_vote = NULL WHERE user_vote = '.$room_playing_song_id;
         $res   = $conn->query($query);
         
-        $query = 'SELECT user_vote,count(*) FROM user WHERE user_vote != NULL GROUP BY user_vote ORDER BY count(*) DESC limit 1';
+        $query = 'SELECT user_vote,count(*) FROM user WHERE user_vote IS NOT NULL GROUP BY user_vote ORDER BY count(*) DESC limit 1';
         $res   = $conn->query($query);
         $row   = $res->fetch();
         if ($row[0] == NULL)
