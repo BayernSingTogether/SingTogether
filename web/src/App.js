@@ -82,10 +82,10 @@ class App extends Component {
           })
           this.setPlayingSong(this.state.nextSongBlob)
           this.playAudio(playingStarted)
-          this.downloadSongAndLyrics('next', nextSong)
+          this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
         } else {
-          this.downloadSongAndLyrics('current', playingSong)
-          this.downloadSongAndLyrics('next', nextSong)
+          this.downloadSongAndLyrics('current', this.state.songs.find((item) => (item.song_id === playingSong)) || {})
+          this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
         }
 
         this.setState({
