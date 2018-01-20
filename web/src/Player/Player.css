@@ -11,7 +11,8 @@
 }
 
 .playing__song {
-    height: 60px;
+    padding-top: 5px;
+    height: 55px;
     overflow: hidden;
     font-size: 20px;
     background-color: rgba(0,0,0,0.1);
@@ -30,13 +31,21 @@
 .playing__lyrics {
     text-align: center;
     overflow: hidden;
-    height: 100px;
+    height: 110px;
+}
+
+.playing__lyrics__scroll {
+  -webkit-transition: margin 0.5s;
+  transition: margin 0.5s;
 }
 
 .playing__lyrics__line {
-    font-size: 12px;
+    padding: 5px 0;
+    font-size: 16px;
+    -webkit-transition: font-size 0.5s;
+    transition: font-size 0.5s;
 }
 
 .playing__lyrics__line--current {
-    font-size: 20px;
+    font-size: 25px;
 }
