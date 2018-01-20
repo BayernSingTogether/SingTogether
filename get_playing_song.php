@@ -42,7 +42,7 @@ try {
     $row   = $res->fetch();
     
     $json['ret'] = true;
-    $json['msg'] = 'get playing song done';
+    $json['msg'] = 'get playing song done, current timestrap = '.get_millisecond();
     $json['room_playing_song_id']        = $row['room_playing_song_id'];
     $json['soom_playing_song_timestrap'] = $row['soom_playing_song_timestrap'];
     
