@@ -21,5 +21,5 @@ CREATE TABLE `song` (
 ) CHARSET=utf8;
 
 INSERT INTO `song`(song_length, song_name, song_file, song_lyric) VALUES(225, 'Forever Number One', 'Forever Number One.mp3', 'Forever Number One.lrc');
-INSERT INTO `song`(song_length, song_name, song_file, song_lyric) VALUES(225, 'Lemon Tree'        , 'Lemon Tree.mp3'        , 'Lemon Tree.lrc'        );
+INSERT INTO `song`(song_length, song_name, song_file, song_lyric) VALUES(187, 'Lemon Tree'        , 'Lemon Tree.mp3'        , 'Lemon Tree.lrc'        );
 
