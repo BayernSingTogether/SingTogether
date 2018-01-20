@@ -47,7 +47,7 @@ class Player extends Component {
     return (
       <nav class="playing">
         <div class="playing__song">
-          <div class="playing__artist">{this.props.currentSong.artist}</div>
+          <div class="playing__artist">{this.props.currentSong.song_artist}</div>
           <div class="playing__name">{this.props.currentSong.song_name}</div>
         </div>
         <div class="playing__lyrics">
