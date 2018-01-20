@@ -26,15 +26,17 @@ if (!isset($_COOKIE["user"])) {
         $json['msg'] = $e->getMessage();
         exit();
     }*/
+    echo '1';
     $json['ret'] = true;
     $json['msg'] = 'test';
     
 } else {
+    echo '2';
     $json['ret'] = true;
     $json['msg']    = 'cookie user already exist';
 }
 
-header('Content-type: application/json');
-echo json_encode($json, JSON_UNESCAPED_UNICODE);
+#header('Content-type: application/json');
+#echo json_encode($json, JSON_UNESCAPED_UNICODE);
 
 ?>
