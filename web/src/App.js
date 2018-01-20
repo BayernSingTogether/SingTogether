@@ -35,7 +35,7 @@ class App extends Component {
     .then(function (response) {
       console.log(response)
       this.setState({
-        songs: response.data
+        songs: (response.data || {}).list || []
       })
     })
     .catch(function (error) {
