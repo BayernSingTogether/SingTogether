@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import request from 'request'
 
 import SplashScreen from './SplashScreen/SplashScreen'
 import SongList from './SongList/SongList'
@@ -15,20 +16,28 @@ class App extends Component {
     this.state = {
       currentView: 'splashscreen',
       currentTime: 0,
+      songs: [],
     }
-    
-    
-    /// TEST MOCKUP
+
     const x = setInterval(() => {
+      this.getSongsList()
+      
+      /// TEST MOCKUP
       this.setState({
         currentTime: this.state.currentTime + 1
       })
-
-      // If the count down is finished, write some text 
-      if (this.state.currentTime > 50) {
-        clearInterval(x);
-      }
     }, 1000);
+  }
+  
+  getSongsList () {
+    request
+      .get('/get_song_list.php')
+      .on('response', (response) => {
+        console.log(response)
+        this.setState({
+          songs: JSON.parse(response.body)
+        })
+      })
   }
 
   render() {
@@ -43,23 +52,7 @@ class App extends Component {
         <div>
           <SongList
             onStream={() => ( this.setState({ currentView: 'streaming' }) ) }
-            songs={[
-              { id: 1, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 0 },
-              { id: 2, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 3 },
-              { id: 3, artist: 'Pep', song_name: 'Github sticker remix', votes: 100 },
-              { id: 4, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 3 },
-              { id: 5, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 3 },
-              { id: 6, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 2 },
-              { id: 7, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 300 },
-              { id: 8, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 3 },
-              { id: 9, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 3 },
-              { id: 10, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 3 },
-              { id: 11, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 3 },
-              { id: 12, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 3 },
-              { id: 13, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 1 },
-              { id: 14, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 0 },
-              { id: 15, artist: 'Sebas to loko', song_name: 'Github sticker fest', votes: 3 },
-            ]}
+            songs={this.state.songs}
           />
           <Player
             currentTime={this.state.currentTime}
