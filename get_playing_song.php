@@ -28,11 +28,7 @@ try {
     $row   = $res->fetch();
     $song_length = $row['song_length'];
     
-    
-    echo $song_length * 1000 + $soom_playing_song_timestrap.'\n';
-    echo get_millisecond();
-    if ($song_length * 1000 + $soom_playing_song_timestrap > get_millisecond()) {
-        echo 'update playing song';
+    if ($song_length * 1000 + $soom_playing_song_timestrap < get_millisecond()) {
         $query = "SELECT user_vote,count(*) FROM user GROUP BY user_vote ORDER BY count(*) DESC limit 1";
         $res   = $conn->query($query);
         $row   = $res->fetch();
@@ -41,11 +37,16 @@ try {
         $res   = $conn->query($query);
     }
     
-    #$query = "UPDATE room SET room_playing_song_id = ".$row[0].", soom_playing_song_timestrap = ".get_millisecond()." WHERE room_id = 1";
-    #$res   = $conn->query($query);
+    $query = "SELECT * FROM room WHERE room_id=1";
+    $res   = $conn->query($query);
+    $row   = $res->fetch();
     
     $json['ret'] = true;
-    $json['msg'] = '';
+    $json['msg'] = 'get playing song done, current timestrap = '.get_millisecond();
+    $json['room_playing_song_id']        = $row['room_playing_song_id'];
+    $json['soom_playing_song_timestrap'] = $row['soom_playing_song_timestrap'];
+    
+    $conn = null;
 } catch(PDOException $e) {
     $json['ret'] = false;
     $json['msg'] = $e->getMessage();
