@@ -4,11 +4,11 @@ $json = array();
 try {
     $conn  = new PDO('mysql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = "SELECT * FROM song";
+    $query = 'SELECT * FROM song';
     $res   = $conn->query($query);
     $json['list'] = array();
     while ($row = $res->fetch()) {
-        $local_query = "SELECT count(*) FROM user WHERE user_vote = ".$row['song_id']." GROUP BY user_vote";
+        $local_query = 'SELECT count(*) FROM user WHERE user_vote = '.$row['song_id'].' GROUP BY user_vote';
         $local_res   = $conn->query($local_query);
         $local_row   = $local_res->fetch();
         if ($local_row[0] == NULL)
