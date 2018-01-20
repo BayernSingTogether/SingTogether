@@ -6,7 +6,7 @@ USE yw8uospcgbz3woi1;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id`     INT(11) NOT NULL AUTO_INCREMENT,
-  `user_vote`   INT(11) NOT NULL,
+  `user_vote`   INT(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) CHARSET=utf8;
 

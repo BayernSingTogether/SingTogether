@@ -75,17 +75,17 @@ class App extends Component {
       const playingSong = parseInt((response.data || {}).room_playing_song_id)
       const nextSong = parseInt((response.data || {}).room_next_song_id)
       
-      if (playingSong !== this.state.playingSong && this.state.songs.length !== 0) {
+      if (playingStarted !== this.state.playingStarted && this.state.songs.length !== 0) {
         if (playingSong === this.state.nextSong) {
           this.setState({
             lyrics: this.state.nextLyrics
           })
           this.setPlayingSong(this.state.nextSongBlob)
           this.playAudio(playingStarted)
-          this.downloadSongAndLyrics('next', nextSong)
+          this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
         } else {
-          this.downloadSongAndLyrics('current', playingSong)
-          this.downloadSongAndLyrics('next', nextSong)
+          this.downloadSongAndLyrics('current', this.state.songs.find((item) => (item.song_id === playingSong)) || {})
+          this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
         }
 
         this.setState({
@@ -163,56 +163,62 @@ class App extends Component {
     })
   }
   
-  playAudio () {
-    console.log('server time', this.state.playingStarted, 'local time', this.serverTime.UTC())
-
+  playAudio (playingStarted) {
+    console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
+    
     this.audio.play()
     
-    const time = this.serverTime.UTC() - this.state.playingStarted
+    const time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
     this.audio.currentTime = time / 1000
   }
 
   render() {
-    if (this.state.currentView === 'splashscreen') {
-      return (
-        <div>
-          <SplashScreen onClick={() => {
-            this.setState({ currentView: 'songlist' })
-            this.playAudio()
-          }} />
-        </div>
-      );
-    } else if (this.state.currentView === 'songlist') {
-      return (
-        <div>
-          <SongList
-            onStream={() => ( this.setState({ currentView: 'streaming' }) ) }
-            songs={this.state.songs}
-            currentVote={this.state.currentVote}
-            postVote={this.postVote}
-          />
-          <audio ref={(ref) => (this.audio = ref)} />
-          <Player
-            currentTime={this.state.currentTime}
-            currentSong={this.state.songs.find((item) => (item.song_id === this.state.playingSong)) || {}}
-            currentLine={this.state.currentLine}
-            lyrics={this.state.lyrics}
-          />
-        </div>
-      );
-    } else if (this.state.currentView === 'streaming') {
-      return (
-        <div>
-          <Streaming onBack={() => ( this.setState({ currentView: 'songlist' }) ) } />
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          ERROR, view not selected.
-        </div>
-      )
-    }
+    return (
+      <div>
+        {(() => {
+          if (this.state.currentView === 'splashscreen') {
+            return (
+              <div>
+                <SplashScreen onClick={() => {
+                  this.setState({ currentView: 'songlist' })
+                  this.playAudio()
+                }} />
+              </div>
+            );
+          } else if (this.state.currentView === 'songlist') {
+            return (
+              <div>
+                <SongList
+                  onStream={() => ( this.setState({ currentView: 'streaming' }) ) }
+                  songs={this.state.songs}
+                  currentVote={this.state.currentVote}
+                  postVote={this.postVote}
+                />
+                <Player
+                  currentTime={this.state.currentTime}
+                  currentSong={this.state.songs.find((item) => (item.song_id === this.state.playingSong)) || {}}
+                  currentLine={this.state.currentLine}
+                  lyrics={this.state.lyrics}
+                />
+              </div>
+            );
+          } else if (this.state.currentView === 'streaming') {
+            return (
+              <div>
+                <Streaming onBack={() => ( this.setState({ currentView: 'songlist' }) ) } />
+              </div>
+            );
+          } else {
+            return (
+              <div>
+                ERROR, view not selected.
+              </div>
+            )
+          }
+        })()}
+        <audio ref={(ref) => (this.audio = ref)} />
+      </div>
+    )
   }
 }
 
