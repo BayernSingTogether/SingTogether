@@ -40,7 +40,7 @@ class App extends Component {
   }
   
   getSongsList () {
-    axios.get('/get_song_list.php')
+    axios.get('/api/v1/get_song_list.php')
     .then((response) => {
       this.setState({
         songs: ((response.data || {}).list || [])
@@ -57,7 +57,7 @@ class App extends Component {
   }
   
   getPlayingSong () {
-    axios.get('/get_playing_song.php')
+    axios.get('/api/v1/get_playing_song.php')
     .then((response) => {
       this.setState({
         playingStarted: parseInt((response.data || {}).soom_playing_song_timestrap, 10),
@@ -70,7 +70,7 @@ class App extends Component {
   }
   
   postVote (songId) {
-    axios.get(`/vote.php?song_id=${songId}`)
+    axios.get(`/api/v1/vote.php?song_id=${songId}`)
 
     this.setState({
       currentVote: songId
