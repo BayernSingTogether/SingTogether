@@ -37,8 +37,16 @@ try {
         $res   = $conn->query($query);
     }
     
+    $query = "SELECT * FROM room WHERE room_id=1";
+    $res   = $conn->query($query);
+    $row   = $res->fetch();
+    
     $json['ret'] = true;
-    $json['msg'] = '';
+    $json['msg'] = 'get playing song done';
+    $json['room_playing_song_id']        = $row['room_playing_song_id'];
+    $json['soom_playing_song_timestrap'] = $row['soom_playing_song_timestrap'];
+    
+    $conn = null;
 } catch(PDOException $e) {
     $json['ret'] = false;
     $json['msg'] = $e->getMessage();
