@@ -8,7 +8,7 @@ define("DB_NAME" , 'yw8uospcgbz3woi1'); //Nombre de la base de datos server fina
 
 $json = array();
 echo '?';
-
+/*
 if (!isset($_COOKIE["user"])) {
     
     try {
@@ -33,6 +33,6 @@ if (!isset($_COOKIE["user"])) {
 }
 
 header('Content-type: application/json');
-echo json_encode($json, JSON_UNESCAPED_UNICODE);
+echo json_encode($json, JSON_UNESCAPED_UNICODE);*/
 
 ?>
