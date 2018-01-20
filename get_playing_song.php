@@ -42,7 +42,7 @@ try {
     $res   = $conn->query($query);
     
     $json['ret'] = true;
-    $json['msg'] = 'cookie `user='.$row[0].'` set successfully';
+    $json['msg'] = '';
 } catch(PDOException $e) {
     $json['ret'] = false;
     $json['msg'] = $e->getMessage();
