@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import request from 'request'
+import axios from 'axios'
 
 import SplashScreen from './SplashScreen/SplashScreen'
 import SongList from './SongList/SongList'
@@ -30,14 +31,16 @@ class App extends Component {
   }
   
   getSongsList () {
-    request
-      .get('/get_song_list.php')
-      .on('response', (response) => {
-        console.log(response)
-        this.setState({
-          songs: JSON.parse(response.body)
-        })
+    axios.get('//get_song_list.php')
+    .then(function (response) {
+      console.log(response)
+      this.setState({
+        songs: response.data
       })
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
   }
 
   render() {
