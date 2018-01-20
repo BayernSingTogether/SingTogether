@@ -29,6 +29,9 @@ class App extends Component {
         currentTime: this.state.currentTime + 1
       })
     }, 1000);
+    
+    this.getSongsList = this.getSongsList.bind(this)
+    this.postVote = this.postVote.bind(this)
   }
   
   getSongsList () {
@@ -41,6 +44,14 @@ class App extends Component {
     })
     .catch((error) => {
       console.log(error)
+    })
+  }
+  
+  postVote (songId) {
+    axios.get(`/vote.php?song_id=${songId}`)
+
+    this.setState({
+      currentVote: songId
     })
   }
 
@@ -58,6 +69,7 @@ class App extends Component {
             onStream={() => ( this.setState({ currentView: 'streaming' }) ) }
             songs={this.state.songs}
             currentVote={this.state.currentVote}
+            postVote={this.postVote}
           />
           <Player
             currentTime={this.state.currentTime}

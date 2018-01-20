@@ -11,6 +11,10 @@
     color: white;
 }
 
+.list__item--voted {
+    background-color: #014271;
+}
+
 /* .list__item:nth-child(2n) {
     background-color: white;
     color: black;
