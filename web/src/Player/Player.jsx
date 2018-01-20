@@ -35,7 +35,8 @@ class Player extends Component {
   }
 
   downloadSong (url) {
-    axios.get(url)
+    console.log('downloadSong')
+    axios.get(url, { responseType: 'blob' })
     .then((response) => {
       console.log('song respnse', response.data)
       const song = window.URL.createObjectURL(response.data)
