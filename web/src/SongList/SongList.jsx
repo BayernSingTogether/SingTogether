@@ -10,7 +10,7 @@ class SongList extends Component {
             .sort((a, b) => (b.votes - a.votes))
             .map((item, i) => {
             return (
-              <li key={item.id} class="list__item">
+              <li key={item.song_id} class={`list__item ${item.song_id === this.props.currentVote ? 'list__item' : ''}`}>
                 <div class="list__item__f">
                   <div class="list__item__position">{i + 1}</div>
                   <div class="list__item__votes">{item.votes}</div>

@@ -17,6 +17,7 @@ class App extends Component {
     this.state = {
       currentView: 'splashscreen',
       currentTime: 0,
+      currentVote: null,
       songs: [],
     }
 
@@ -32,13 +33,13 @@ class App extends Component {
   
   getSongsList () {
     axios.get('/get_song_list.php')
-    .then(function (response) {
+    .then((response) => {
       console.log(response)
       this.setState({
         songs: (response.data || {}).list || []
       })
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error)
     })
   }
@@ -56,6 +57,7 @@ class App extends Component {
           <SongList
             onStream={() => ( this.setState({ currentView: 'streaming' }) ) }
             songs={this.state.songs}
+            currentVote={this.state.currentVote}
           />
           <Player
             currentTime={this.state.currentTime}
