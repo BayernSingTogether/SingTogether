@@ -1,37 +1,33 @@
-<?php
- define("DB_HOST",'m60mxazb4g6sb4nn.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306'); //Host base de datos MySql
- define("DB_USER", 'g48fqaog7yhlic5p'); //Nombre de la base de datos
- define("DB_PASS" , 'l4l4wkcad1im3kbg'); //Contraseña de la base de datos MySql
- define("DB_NAME" , 'yw8uospcgbz3woi1'); //Nombre de la base de datos server final
+<?php 
 
-  $con=mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
- //mysqli_query("SET CHARACTER SET utf8");  
-//mysqli_query("SET NAMES utf8");
+$hostname="m60mxazb4g6sb4nn.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306";
+$database="yw8uospcgbz3woi1";
+$username="g48fqaog7yhlic5p";
+$password="l4l4wkcad1im3kbg";
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-$incidencias['appc'] = array();
-if( $con )  
-{  
-  
-$consulta="SELECT * FROM songs ORDER BY id_sogs ASC ";
-
-$res=  mysqli_query($con, $consulta);
+try { 
+	$conn = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+ 	// set the PDO error mode to exception 
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+	//echo "Connected successfully";
+	 } catch(PDOException $e) { 
+		echo "Connection failed: " . $e->getMessage();
+	 }
+	 $incidencias['app'] = array();
+ 
     
-    while( $row = mysqli_fetch_array($res) ) {
-        array_push($incidencias['appc'], array(
-            'id_sogs'    => $row['id_sogs'], 
-            'name'  => $row['name'], 
+$consulta= 'SELECT * FROM songs';
+
+ foreach ($conn->query($consulta) as $row) {
+ 	array_push($incidencias['app'], array(
+            'id_sogs'    => $row['id_song'], 
+            'name'  => $row['song_name'], 
         ));
-    }
-    mysqli_free_result($res);
-    mysqli_close($con);
-}
+ 	$songs[]= $row['name'];
+          }
+
 
 header('Content-type: application/json');
 echo json_encode($incidencias);
 
-?>
- 
+ ?>
