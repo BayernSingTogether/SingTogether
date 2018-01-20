@@ -7,8 +7,7 @@ define("DB_PASS" , 'l4l4wkcad1im3kbg'); //Contrase?a de la base de datos MySql
 define("DB_NAME" , 'yw8uospcgbz3woi1'); //Nombre de la base de datos server final
 
 $json = array();
-#$json['status'] = true;
-#$json['openid'] = $obj->openid;
+echo '?';
 
 if (!isset($_COOKIE["user"])) {
     
