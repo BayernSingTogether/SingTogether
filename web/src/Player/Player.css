@@ -11,6 +11,7 @@
 }
 
 .playing__song {
+    position: relative;
     padding-top: 5px;
     height: 55px;
     overflow: hidden;
@@ -32,6 +33,19 @@
     text-align: center;
     overflow: hidden;
     height: 110px;
+}
+
+.playing__ball {
+    position: absolute;
+    display: block;
+    background: white;
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin: 0;
+    bottom: -5px;
+    -webkit-transition: left 2s;
+    transition: left 2s;
 }
 
 .playing__lyrics__scroll {
