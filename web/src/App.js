@@ -42,6 +42,8 @@ class App extends Component {
       nextLyrics: [],
       timeOutGetPlayingSong: null,
     }
+    
+    this.hasPlayedThrough = false
 
     const x = setInterval(() => {
       this.getSongsList()
@@ -244,11 +246,15 @@ class App extends Component {
   }
   
   handleCanPlayThrough (e) {
-    console.log('puedo reproducir', e.target.readyState)
-    const time = this.serverTime.valueOf() - (this.state.playingStarted)
-    console.log('go to second handlePlay', time / 1000)
-    console.log('readyState:', this.audio.readyState)
-    this.audio.currentTime = time / 1000
+    if (!this.hasPlayedThrough) {
+      console.log('puedo reproducir', e.target.readyState)
+      const time = this.serverTime.valueOf() - (this.state.playingStarted)
+      console.log('go to second handlePlay', time / 1000)
+      console.log('readyState:', this.audio.readyState)
+      this.audio.currentTime = time / 1000
+      
+      this.hasPlayedThrough = true
+    }
   }
 
   render() {
