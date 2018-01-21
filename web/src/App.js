@@ -107,7 +107,11 @@ class App extends Component {
             setTimeout(
               () => {
                 this.setPlayingSong(this.state.nextSongBlob)
-                this.playAudio(playingStarted)
+                setTimeout(() => {
+                    this.playAudio(playingStarted)
+                  },
+                  200
+                )
               },
               1000
             )
@@ -211,15 +215,21 @@ class App extends Component {
     if (this.state.status === 'playing') {
       console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
 
-      let time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
-      console.log('go to second playAudio1', time / 1000)
-      this.audio.currentTime = time / 1000
+      // let time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+      // console.log('go to second playAudio1', time / 1000)
+      // this.audio.currentTime = time / 1000
       
       this.audio.play()
+      
+      this.audio.on('loadedmetadata', () => {
+        console.log('loadedmetadata!!')
+        let time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+        this.audio.currentTime = time / 1000
+      })
 
-      time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
-      console.log('go to second playAudio2', time / 1000)
-      this.audio.currentTime = time / 1000
+      // time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+      // console.log('go to second playAudio2', time / 1000)
+      // this.audio.currentTime = time / 1000
     }
   }
   
