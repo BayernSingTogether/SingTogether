@@ -95,6 +95,17 @@ ServerDate.getPrecision = function() // ms
     return target.precision + Math.abs(target - offset);
 };
 
+// After a synchronization there may be a significant difference between our
+// clock and the server's clock.  Rather than make the change abruptly, we
+// change our clock by adjusting it once per second by the amortizationRate.
+ServerDate.amortizationRate = 25; // ms
+
+// The exception to the above is if the difference between the clock and
+// server's clock is too great (threshold set below).  If that's the case then
+// we skip amortization and set the clock to match the server's clock
+// immediately.
+ServerDate.amortizationThreshold = 10; // ms
+
 Object.defineProperty(ServerDate, "synchronizationIntervalDelay", {
   get: function() { return synchronizationIntervalDelay; },
 
@@ -260,8 +271,21 @@ if (typeof performance != "undefined") {
 // Set the target to the initial offset.
 setTarget(new Offset(offset, precision));
 
+// Amortization process.  Every second, adjust the offset toward the target by
+// a small amount.
+setInterval(function()
+{
+  // Don't let the delta be greater than the amortizationRate in either
+  // direction.
+  var delta = Math.max(-ServerDate.amortizationRate,
+    Math.min(ServerDate.amortizationRate, target - offset));
 
-offset = target.value
+  offset += delta;
+
+  if (delta)
+    log("Offset adjusted by " + delta + " ms to " + offset + " ms (target: "
+      + target.value + " ms).");
+}, 1000);
 
 // Synchronize whenever the page is shown again after losing focus.
 window.addEventListener('pageshow', synchronize);
