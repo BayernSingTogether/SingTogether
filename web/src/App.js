@@ -106,12 +106,12 @@ class App extends Component {
             
             setTimeout(
               () => {
-                this.setPlayingSong(this.state.nextSongBlob)
+                this.setPlayingSong(this.state.nextSongBlob
+                this.playAudio(playingStarted)
               },
               1000
             )
 
-            this.playAudio(playingStarted)
             this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
           } else {
             this.downloadSongAndLyrics('current', currentSongDetails)

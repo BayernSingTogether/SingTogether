@@ -35,10 +35,10 @@
 }
 
 .centerTitle--anim {
-    -webkit-animation: cenTit 1s ease-in;
-    -webkit-animation-delay: 1s;
-    animation: cenTit 1s ease-in;
-    animation-delay: 1s;
+    -webkit-animation: cenTit 0.75s ease-in;
+    -webkit-animation-delay: 0.25s;
+    animation: cenTit 0.75s ease-in;
+    animation-delay: 0.25s;
     animation-fill-mode: forwards;  
 }
 
@@ -89,9 +89,7 @@
 
 .bottomContent--anim {
     -webkit-animation: animBot 1s ease-in;
-    -webkit-animation-delay: 0.75s;
     animation: animBot 1s ease-in;
-    animation-delay: 0.75s;
     animation-fill-mode: forwards;  
 }
 
@@ -116,9 +114,7 @@
 
 .topContent--anim {
   -webkit-animation: animTop 1s ease-in;
-  -webkit-animation-delay: 0.75s;
   animation: animTop 1s ease-in;
-  animation-delay: 0.75s;
   animation-fill-mode: forwards;
 }
 
