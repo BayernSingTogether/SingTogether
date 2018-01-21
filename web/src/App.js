@@ -26,6 +26,7 @@ class App extends Component {
     this.handlePause = this.handlePause.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
     this.handleLoadMetadata = this.handleLoadMetadata.bind(this)
+    this.handleReadyStateChange = this.handleReadyStateChange.bind(this)
     
     this.state = {
       status: 'paused',
@@ -241,6 +242,10 @@ class App extends Component {
     console.log('readyState:', this.audio.readyState)
     this.audio.currentTime = time / 1000
   }
+  
+  handleReadyStateChange (e) {
+    console.log('new ready state', e.target.readyState)
+  }
 
   render() {
     return (
@@ -310,6 +315,7 @@ class App extends Component {
           onPlay={this.handlePlay}
           onLoadedMetadata={this.handleLoadMetadata}
           onLoad={this.handleLoadMetadata}
+          onReadyStateChange={this.handleReadyStateChange}
         />
       </div>
     )
