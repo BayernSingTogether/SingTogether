@@ -11,7 +11,7 @@ if (!isset($_COOKIE["user"])) {
         $query = 'SELECT user_vote FROM user WHERE user_id='.$_COOKIE["user"];
         $res   = $conn->query($query);
         $row   = $res->fetch();
-        if ($row['user_vote'] == NULL) {
+        if ($row == NULL) {
             $json['ret'] = false;
             $json['msg'] = 'illegal user_id';
         } else {
