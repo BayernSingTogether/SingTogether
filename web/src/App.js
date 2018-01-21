@@ -25,7 +25,6 @@ class App extends Component {
     this.getUserVote = this.getUserVote.bind(this)
     this.handlePause = this.handlePause.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
-    this.handleLoadMetadata = this.handleLoadMetadata.bind(this)
     this.handleCanPlayThrough = this.handleCanPlayThrough.bind(this)
     
     this.state = {
@@ -42,8 +41,6 @@ class App extends Component {
       nextLyrics: [],
       timeOutGetPlayingSong: null,
     }
-    
-    this.hasPlayedThrough = false
 
     const x = setInterval(() => {
       this.getSongsList()
@@ -70,7 +67,7 @@ class App extends Component {
       })
 
       if (this.state.playingSong === null) {
-        console.log('playing song', this.state.playingSong)
+        // console.log('playing song', this.state.playingSong)
         this.getPlayingSong()
       }
     })
@@ -107,17 +104,7 @@ class App extends Component {
               lyrics: this.state.nextLyrics
             })
             
-            setTimeout(
-              () => {
-                this.setPlayingSong(this.state.nextSongBlob)
-                setTimeout(() => {
-                    this.playAudio(playingStarted)
-                  },
-                  200
-                )
-              },
-              1000
-            )
+            this.setPlayingSong(this.state.nextSongBlob)
 
             this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
           } else {
@@ -216,16 +203,10 @@ class App extends Component {
   
   playAudio (playingStarted) {
     if (this.state.status === 'playing') {
-      console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
+      // console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
       
       this.audio.play()
     }
-  }
-  
-  handleLoadMetadata () {
-    console.log('loadedmetadata!!')
-    const time = this.serverTime.valueOf() - (this.state.playingStarted)
-    this.audio.currentTime = time / 1000
   }
   
   handlePause () {
@@ -239,22 +220,21 @@ class App extends Component {
       status: 'playing',
     })
     
+    
+    const time = this.serverTime.valueOf() - (this.state.playingStarted)
+    this.audio.currentTime = time / 1000
+    // console.log('go to second handlePlay', time / 1000)
+    // console.log('readyState:', this.audio.readyState)
+  }
+  
+  handleCanPlayThrough (e) {
+    console.log('puedo reproducir', e.target.readyState)
     const time = this.serverTime.valueOf() - (this.state.playingStarted)
     console.log('go to second handlePlay', time / 1000)
     console.log('readyState:', this.audio.readyState)
     this.audio.currentTime = time / 1000
-  }
-  
-  handleCanPlayThrough (e) {
-    if (!this.hasPlayedThrough) {
-      console.log('puedo reproducir', e.target.readyState)
-      const time = this.serverTime.valueOf() - (this.state.playingStarted)
-      console.log('go to second handlePlay', time / 1000)
-      console.log('readyState:', this.audio.readyState)
-      this.audio.currentTime = time / 1000
-      
-      this.hasPlayedThrough = true
-    }
+
+    this.hasPlayedThrough = true
   }
 
   render() {
@@ -323,7 +303,6 @@ class App extends Component {
           ref={(ref) => { this.audio = ref; window.aaa = ref }}
           onPause={this.handlePause}
           onPlay={this.handlePlay}
-          onLoadedMetadata={this.handleLoadMetadata}
           onLoad={this.handleLoadMetadata}
           onCanPlayThrough={this.handleCanPlayThrough}
         />
