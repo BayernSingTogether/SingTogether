@@ -23,6 +23,10 @@ along with ServerDate.  If not, see <http://www.gnu.org/licenses/>.
 
 'use strict';
 
+function DateNow () {
+  return performance.timing.navigationStart + performance.now()
+}
+
 var ServerDate = (function(serverNow) {
 // This is the first time we align with the server's clock by using the time
 // this script was generated (serverNow) and noticing the client time before
@@ -31,7 +35,7 @@ var ServerDate = (function(serverNow) {
 
 var
   // Remember when the script was loaded.
-  scriptLoadTime = Date.now(),
+  scriptLoadTime = performance.timing.navigationStart + performance.now(),
 
   // Remember the URL of this script so we can call it again during
   // synchronization.
@@ -63,7 +67,7 @@ ServerDate.parse = Date.parse;
 ServerDate.UTC = Date.UTC;
 
 ServerDate.now = function() {
-  return Date.now() + offset;
+  return DateNow() + offset;
 };
 
 // Populate ServerDate with the methods of Date's instances that don't change
@@ -90,17 +94,6 @@ ServerDate.getPrecision = function() // ms
     // Take into account the amortization.
     return target.precision + Math.abs(target - offset);
 };
-
-// After a synchronization there may be a significant difference between our
-// clock and the server's clock.  Rather than make the change abruptly, we
-// change our clock by adjusting it once per second by the amortizationRate.
-ServerDate.amortizationRate = 25; // ms
-
-// The exception to the above is if the difference between the clock and
-// server's clock is too great (threshold set below).  If that's the case then
-// we skip amortization and set the clock to match the server's clock
-// immediately.
-ServerDate.amortizationThreshold = 2000; // ms
 
 Object.defineProperty(ServerDate, "synchronizationIntervalDelay", {
   get: function() { return synchronizationIntervalDelay; },
@@ -177,7 +170,7 @@ function synchronize() {
 
     // Ask the server for another copy of ServerDate.js but specify a unique number on the URL querystring
 	// so that we don't get the browser cached Javascript file
-	request.open("GET", URL + "?noCache=" + Date.now());
+	request.open("GET", URL + "?noCache=" + ());
 
     // At the earliest possible moment of the response, record the time at
     // which we received it.
@@ -185,7 +178,7 @@ function synchronize() {
       // If we got the headers and everything's OK
       if ((this.readyState == this.HEADERS_RECEIVED)
         && (this.status == 200))
-        responseTime = Date.now();
+        responseTime = ();
     };
 
     // Process the server's response.
@@ -203,7 +196,7 @@ function synchronize() {
     };
 
     // Remember the time at which we sent the request to the server.
-    requestTime = Date.now();
+    requestTime = ();
 
     // Send the request.
     request.send();
@@ -267,21 +260,8 @@ if (typeof performance != "undefined") {
 // Set the target to the initial offset.
 setTarget(new Offset(offset, precision));
 
-// Amortization process.  Every second, adjust the offset toward the target by
-// a small amount.
-setInterval(function()
-{
-  // Don't let the delta be greater than the amortizationRate in either
-  // direction.
-  var delta = Math.max(-ServerDate.amortizationRate,
-    Math.min(ServerDate.amortizationRate, target - offset));
 
-  offset += delta;
-
-  if (delta)
-    log("Offset adjusted by " + delta + " ms to " + offset + " ms (target: "
-      + target.value + " ms).");
-}, 1000);
+offset = target.value
 
 // Synchronize whenever the page is shown again after losing focus.
 window.addEventListener('pageshow', synchronize);
@@ -291,4 +271,4 @@ synchronize();
 
 // Return the newly defined module.
 return ServerDate;
-})(Date.now());
+})(DateNow());
