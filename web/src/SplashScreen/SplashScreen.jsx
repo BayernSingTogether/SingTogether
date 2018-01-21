@@ -34,7 +34,7 @@ class SplashScreen extends Component {
 
   render() {
     return (
-      <div onClick={this.handleClick}>
+      <div className="splashScreen" onClick={this.handleClick}>
         <div className="loadContainer">
           <div className="loadSentence">
             {(() => {
@@ -74,7 +74,7 @@ class SplashScreen extends Component {
             'bottomContent bottomContent--anim' : 'bottomContent'
           }
         >
-          <img className="bothImgs bottomImg" src="bottom.png"></img>
+          <img className="bothImgs bottomImg" src="/public/bottom.png"></img>
           <div className="bottomDiamonds">
             <div style={{ left:-25, bottom: 15 }} className="diamondContainer">
               <div className="diamond"></div>
@@ -176,7 +176,7 @@ class SplashScreen extends Component {
               <div className="diamond"></div>
             </div>
           </div>
-          <img className="bothImgs topImg" src="top.png"></img>
+          <img className="bothImgs topImg" src="/public/top.png"></img>
         </div>
       </div>
     );

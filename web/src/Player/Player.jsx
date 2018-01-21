@@ -32,7 +32,7 @@ class Player extends Component {
         <div className="playing__song">
           <div className="playing__artist">{this.props.currentSong.song_artist}</div>
           <div className="playing__name">{this.props.currentSong.song_name}</div>
-          <div className="playing__ball" style={{ left: window.innerWidth * (this.props.currentTime || 0) / parseFloat((this.props.currentSong.song_length ||1 )) }} />
+          <div className="playing__ball" style={{ left: (window.innerWidth - 10) * (this.props.currentTime || 0) / parseFloat((this.props.currentSong.song_length ||1 )) }} />
         </div>
         <div className="playing__lyrics">
           <div className="playing__lyrics__scroll" style={{ marginTop: 20-29*this.state.currentLine }}>
