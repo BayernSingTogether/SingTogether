@@ -36,7 +36,7 @@ try {
         $res   = $conn->query($query);
         
         $query = "SELECT * FROM room WHERE room_id=1";
-        $res   = $conn->query($query);
+        $res   = $conn->query($query);#
         $row   = $res->fetch();
         $room_playing_song_id        = $row['room_playing_song_id'];
         $room_playing_song_timestrap = $row['room_playing_song_timestrap'];
