@@ -33,7 +33,6 @@ class App extends Component {
       playingSong: null,
       nextSong: null,
       nextSongBlob: null,
-      currentLine: 0,
       lyrics: [],
       nextLyrics: [],
       currentTime: 0,
@@ -122,11 +121,8 @@ class App extends Component {
           () => {
             this.getPlayingSong()
           },
-          parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted) + 0.5
+          parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted)/1000 + 0.5
         );
-        console.log('get next song', parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted) + 0.5)
-        console.log('length', parseFloat(currentSongDetails.song_length))
-        console.log('current', (this.serverTime.valueOf() - playingStarted) + 0.5)
       } else {
         // Schedule next check
         setTimeout(
@@ -183,16 +179,8 @@ class App extends Component {
     axios.get(url)
     .then((response) => {
       if (songType === 'current') {
-        let currentLine = false
-        response.data.forEach((item, i) => {
-          if (currentLine === false && item[0] > this.state.currentTime) {
-            currentLine = i
-          }
-        })
-
         this.setState({
           lyrics: response.data || [],
-          currentLine,
         })
       } else {
         this.setState({
@@ -239,7 +227,6 @@ class App extends Component {
                 <Player
                   currentTime={this.state.currentTime}
                   currentSong={this.state.songs.find((item) => (item.song_id === this.state.playingSong)) || {}}
-                  currentLine={this.state.currentLine}
                   lyrics={this.state.lyrics}
                 />
               </div>
