@@ -16,7 +16,7 @@ if (!isset($_COOKIE["user"])) {
             $json['msg'] = 'illegal user_id';
         } else {
             $json['ret'] = true;
-            $json['msg'] = 'get my vote successfully';
+            $json['msg'] = 'get my vote successfully!';
             $json['user_vote'] = $row['user_vote'];
         }
         
