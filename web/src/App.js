@@ -252,7 +252,7 @@ class App extends Component {
         // Schedule to play
         setTimeout(
           this.playAudio,
-          time
+          -time
         )
       }
     }
