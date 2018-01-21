@@ -181,7 +181,7 @@ function synchronize() {
 
     // Ask the server for another copy of ServerDate.js but specify a unique number on the URL querystring
 	// so that we don't get the browser cached Javascript file
-	request.open("GET", URL + "?noCache=" + ());
+	request.open("GET", URL + "?noCache=" + DateNow());
 
     // At the earliest possible moment of the response, record the time at
     // which we received it.
