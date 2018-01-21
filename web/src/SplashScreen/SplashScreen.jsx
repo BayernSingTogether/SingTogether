@@ -60,19 +60,19 @@ class SplashScreen extends Component {
           }
         </div>
         <div
-          className={{
+          className={
             this.state.clicked ?
             'centerTitle centerTitle--anim' : 'centerTitle'
-          }}
+          }
         >
             <span className="title2">Sing Together</span>
             <span className="title1">FC BAYERN</span>
         </div>
         <div
-          className={{
+          className={
             this.state.clicked ?
             'bottomContent bottomContent--anim' : 'bottomContent'
-          }}
+          }
         >
           <img className="bothImgs bottomImg" src="bottom.png"></img>
           <div className="bottomDiamonds">
@@ -124,10 +124,10 @@ class SplashScreen extends Component {
           </div>
         </div>
         <div
-          className={{
+          className={
             this.state.clicked ?
             'topContent topContent--anim' : 'topContent'
-          }}
+          }
         >
           <div className="topDiamonds">
             <div style="left:50px;bottom:-155px;" className="diamondContainer">
