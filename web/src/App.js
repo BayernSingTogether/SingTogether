@@ -128,7 +128,7 @@ class App extends Component {
             () => {
               this.getPlayingSong()
             },
-            parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted)/1000 + 0.5
+            (parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted)/1000 + 0.5)*1000
           )
         })
 
@@ -144,7 +144,7 @@ class App extends Component {
             () => {
               this.getPlayingSong()
             },
-            1
+            1*1000
           )
         })
       }
