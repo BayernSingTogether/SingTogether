@@ -106,7 +106,7 @@ class App extends Component {
             
             setTimeout(
               () => {
-                this.setPlayingSong(this.state.nextSongBlob
+                this.setPlayingSong(this.state.nextSongBlob)
                 this.playAudio(playingStarted)
               },
               1000
