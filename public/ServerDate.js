@@ -189,10 +189,19 @@ function synchronize() {
       // If we got the headers and everything's OK
       if ((this.readyState == this.HEADERS_RECEIVED)
         && (this.status == 200))
-        responseTime = ();
+        responseTime = DateNow();
     };
 
-    // Process the server's response.
+    // Process the server's response.// After a synchronization there may be a significant difference between our
+    // clock and the server's clock.  Rather than make the change abruptly, we
+    // change our clock by adjusting it once per second by the amortizationRate.
+    ServerDate.amortizationRate = 25; // ms
+
+    // The exception to the above is if the difference between the clock and
+    // server's clock is too great (threshold set below).  If that's the case then
+    // we skip amortization and set the clock to match the server's clock
+    // immediately.
+    ServerDate.amortizationThreshold = 20; // ms
     request.onload = function() {
       // If OK
       if (this.status == 200) {
@@ -207,7 +216,7 @@ function synchronize() {
     };
 
     // Remember the time at which we sent the request to the server.
-    requestTime = ();
+    requestTime = DateNow();
 
     // Send the request.
     request.send();
