@@ -14,7 +14,7 @@ try {
         $res   = $conn->query($query);
         $row   = $res->fetch();
         if ($row == NULL)
-            $need_set_cookie = true;
+            $need_set_cookie = true;#
     }
     
     if ($need_set_cookie == true) {
