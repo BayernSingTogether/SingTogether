@@ -234,8 +234,8 @@ class App extends Component {
     if (!this.hasPlayedThrough) {
       console.log('puedo reproducir', e.target.readyState)
       const time = this.serverTime.valueOf() - (this.state.playingStarted)
-      console.log('go to second handlePlay', time / 1000)
-      console.log('readyState:', this.audio.readyState)
+      // console.log('go to second handlePlay', time / 1000)
+      // console.log('readyState:', this.audio.readyState)
       this.audio.currentTime = time / 1000
   
       this.hasPlayedThrough = true
@@ -309,7 +309,7 @@ class App extends Component {
           onPause={this.handlePause}
           onPlay={this.handlePlay}
           onLoad={this.handleLoadMetadata}
-          // onCanPlayThrough={this.handleCanPlayThrough}
+          onCanPlayThrough={this.handleCanPlayThrough}
         />
       </div>
     )
