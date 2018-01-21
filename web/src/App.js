@@ -258,6 +258,8 @@ class App extends Component {
                   songs={this.state.songs}
                   currentVote={this.state.currentVote}
                   postVote={this.postVote}
+                  playingSong={this.state.playingSong}
+                  nextSong={this.state.nextSong}
                 />
                 <Player
                   currentTime={this.state.currentTime}

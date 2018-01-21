@@ -40,7 +40,18 @@
 
 .list__item__f {
   text-align: center;
-  flex: 0 0 50px;
+  flex: 0 0 30px;
+}
+
+.next {
+  transform: rotate(90deg);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+}
+
+.list__item__s {
+  text-align: center;
+  flex: 0 0 40px;
 }
 .list__item__position {
   font-size: 20px;
@@ -49,6 +60,6 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
 }
-.list__item__s {
+.list__item__t {
   flex: 1;
 }
