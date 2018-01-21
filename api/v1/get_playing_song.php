@@ -7,7 +7,7 @@ function get_millisecond() {
 require('global.php');
 $json = array();
 try {
-    $conn  = new PDO('pgsql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
+    $conn  = new PDO('pgsql:host='.setting::db_host.';port='.setting::db_port.';dbname='.setting::db_name.';user='.setting::db_user.';password='.setting::db_pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     $query = 'SELECT * FROM room WHERE room_id=1';
