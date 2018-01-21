@@ -21,7 +21,7 @@ try {
     if ($need_set_cookie == true) {
         $query = 'INSERT INTO user(user_vote) VALUES(NULL)';
         $res   = $conn->query($query);
-        $query = 'SELECT LAST_INSERT_ID()';
+        $query = 'RETURNING user_id';
         $res   = $conn->query($query);
         $row   = $res->fetch();
         $json['ret'] = true;
