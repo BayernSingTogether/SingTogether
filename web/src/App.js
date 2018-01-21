@@ -80,7 +80,7 @@ class App extends Component {
     axios.get('/api/v1/get_my_vote.php')
     .then((response) => {
       this.setState({
-        currentVote: (response.data || {}).user_vote || null
+        currentVote: parseInt((response.data || {}).user_vote) || null
       })
     })
     .catch((error) => {
