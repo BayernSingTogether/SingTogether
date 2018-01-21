@@ -9,8 +9,8 @@ $json = array();
 try {
     $conn  = new PDO('mysql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    $query = 'SELECT * FROM room WHERE room_id=1';
+    $conn->beginTransaction();#
+    $query = 'SELECT * FROM room WHERE room_id=1 FOR UPDATE';
     $res   = $conn->query($query);
     $row   = $res->fetch();
     $room_playing_song_id        = $row['room_playing_song_id'];
@@ -35,13 +35,14 @@ try {
         $query = 'UPDATE room SET room_playing_song_id = '.$room_next_song_id.', room_playing_song_timestrap = '.$millisecond.', room_next_song_id = '.$row[0].' WHERE room_id = 1';
         $res   = $conn->query($query);
         
-        $query = "SELECT * FROM room WHERE room_id=1";
-        $res   = $conn->query($query);#
+        $query = "SELECT * FROM room WHERE room_id=1 FOR UPDATE";
+        $res   = $conn->query($query);
         $row   = $res->fetch();
         $room_playing_song_id        = $row['room_playing_song_id'];
         $room_playing_song_timestrap = $row['room_playing_song_timestrap'];
         $room_next_song_id           = $row['room_next_song_id'];
     }
+    $conn->commit();#
 
     $json['ret'] = true;
     $json['msg'] = 'get playing song done, current timestrap = '.$millisecond;
@@ -49,6 +50,7 @@ try {
     $json['room_playing_song_timestrap'] = $room_playing_song_timestrap;
     $json['room_next_song_id']           = $room_next_song_id;
 } catch(PDOException $e) {
+    $conn->rollBack();#
     $json['ret'] = false;
     $json['msg'] = $e->getMessage();
 }
