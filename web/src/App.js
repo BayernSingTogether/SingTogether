@@ -251,7 +251,11 @@ class App extends Component {
         this.audio.currentTime = 0
         // Schedule to play
         setTimeout(
-          this.playAudio,
+          () => {
+            this.playAudio()
+            const time2 = this.serverTime.valueOf() - (this.state.playingStarted)
+            console.log('this should be 0', time2)
+          },
           -time
         )
       }
