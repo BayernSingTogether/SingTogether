@@ -232,6 +232,9 @@ class App extends Component {
   
   handleCanPlayThrough (e) {
     if (!this.hasPlayedThrough) {
+      if (this.state.status === 'playing' && this.audio.paused === true) {
+        this.audio.play()
+      }
       console.log('puedo reproducir', e.target.readyState)
       const time = this.serverTime.valueOf() - (this.state.playingStarted)
       // console.log('go to second handlePlay', time / 1000)
