@@ -234,7 +234,7 @@ class App extends Component {
             return (
               <div>
                 <SplashScreen onClick={() => {
-                  this.status = 'playing'
+                  this.state.status = 'playing'
                   this.setState({ status: 'playing', currentView: 'songlist' })
                   this.playAudio()
                 }} />
