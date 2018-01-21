@@ -245,6 +245,10 @@ class App extends Component {
   
   handleCanPlayThrough (e) {
     console.log('puedo reproducir', e.target.readyState)
+    const time = this.serverTime.valueOf() - (this.state.playingStarted)
+    console.log('go to second handlePlay', time / 1000)
+    console.log('readyState:', this.audio.readyState)
+    this.audio.currentTime = time / 1000
   }
 
   render() {
