@@ -20,7 +20,6 @@ if (!isset($_COOKIE["user"])) {
             $json['ret'] = false;
             $json['msg'] = $e->getMessage();
         }
-        $conn = null;
     }
 }
 echo json_encode($json, JSON_UNESCAPED_UNICODE);
