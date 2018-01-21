@@ -4,6 +4,20 @@ import axios from 'axios'
 import './Player.css'
 
 class Player extends Component {
+  componentWillUpdate (nextProps, nextState) {
+    let found = false
+    nextProps.lyrics.forEach((item, i) => {
+      if (found === false && item[0] >= nextProps.currentTime) {
+        found = true
+        if (this.state.currentLine !== i) {
+          this.setState({
+            currentLine: i,
+          })
+        }
+      }
+    })
+  }
+
   render() {
     return (
       <nav class="playing">
