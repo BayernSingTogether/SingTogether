@@ -6,7 +6,24 @@
   z-index: 100;
   overflow: hidden;
   cursor: pointer;
-  background-color: white;
+  background-color: rgba(255,255,255,1);
+}
+
+.splashScreen--anim {
+  -webkit-animation: change-background 0.75s ease-in;
+  -webkit-animation-delay: 0s;
+  animation: change-background 0.75s ease-in;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;  
+}
+
+@keyframes change-background {
+  0% {
+    background: rgba(255,255,255,1);
+  }
+  100% {
+    background: rgba(255,255,255,0);
+  }
 }
 
 .bothImgs {
@@ -176,7 +193,7 @@
 
 .loadSentence {
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 45px;
+    font-size: 35px;
     display: inline-block;
     color: rgb(255, 255, 255);
 }

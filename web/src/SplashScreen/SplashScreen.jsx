@@ -36,7 +36,13 @@ class SplashScreen extends Component {
 
   render() {
     return (
-      <div className="splashScreen" onClick={this.handleClick}>
+      <div
+        className={
+          this.state.clicked ?
+          'splashScreen splashScreen--anim' : 'splashScreen'
+        }
+        onClick={this.handleClick}
+      >
         <div className="loadContainer">
           <div className="loadSentence">
             {(() => {
