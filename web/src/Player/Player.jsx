@@ -17,9 +17,9 @@ class Player extends Component {
     nextProps.lyrics.forEach((item, i) => {
       if (found === false && item[0] >= nextProps.currentTime) {
         found = true
-        if (this.state.currentLine !== i) {
+        if (this.state.currentLine !== i - 1) {
           this.setState({
-            currentLine: i,
+            currentLine: i - 1,
           })
         }
       }
