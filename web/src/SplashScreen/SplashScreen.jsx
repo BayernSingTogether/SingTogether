@@ -54,7 +54,7 @@ class SplashScreen extends Component {
             })()}
           </div>
           {
-            this.state.syncstate === false ?
+            this.state.syncstate !== false ?
             (<div className="loading"></div>) 
             : undefined
           }
@@ -65,7 +65,7 @@ class SplashScreen extends Component {
             'centerTitle centerTitle--anim' : 'centerTitle'
           }
         >
-            <span className="title2">Sing Together</span>
+            <span className="title2">Sing Together</span><br/>
             <span className="title1">FC BAYERN</span>
         </div>
         <div

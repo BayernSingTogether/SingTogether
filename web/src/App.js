@@ -212,11 +212,13 @@ class App extends Component {
       console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
 
       let time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+      console.log('go to second playAudio1', time / 1000)
       this.audio.currentTime = time / 1000
       
       this.audio.play()
 
       time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+      console.log('go to second playAudio2', time / 1000)
       this.audio.currentTime = time / 1000
     }
   }
@@ -233,6 +235,7 @@ class App extends Component {
     })
     
     const time = this.serverTime.valueOf() - (this.state.playingStarted)
+    console.log('go to second handlePlay', time / 1000)
     this.audio.currentTime = time / 1000
   }
 
