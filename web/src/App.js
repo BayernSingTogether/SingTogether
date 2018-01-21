@@ -91,38 +91,48 @@ class App extends Component {
       const playingSong = parseInt((response.data || {}).room_playing_song_id)
       const nextSong = parseInt((response.data || {}).room_next_song_id)
       
-      if (playingStarted !== this.state.playingStarted && this.state.songs.length !== 0) {
+      if (this.state.songs.length !== 0) {
         const currentSongDetails = this.state.songs.find((item) => (item.song_id === playingSong)) || {}
+        if (playingStarted !== this.state.playingStarted) {
 
-        if (playingSong === this.state.nextSong) {
+          if (playingSong === this.state.nextSong) {
+            this.setState({
+              lyrics: this.state.nextLyrics
+            })
+            this.setPlayingSong(this.state.nextSongBlob)
+            this.playAudio(playingStarted)
+            this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
+          } else {
+            this.downloadSongAndLyrics('current', currentSongDetails)
+            this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
+          }
+
           this.setState({
-            lyrics: this.state.nextLyrics
+            playingStarted,
+            playingSong,
+            nextSong,
           })
-          this.setPlayingSong(this.state.nextSongBlob)
-          this.playAudio(playingStarted)
-          this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
-        } else {
-          this.downloadSongAndLyrics('current', currentSongDetails)
-          this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
+          
+          // Update vote
+          this.getUserVote()
         }
-
-        this.setState({
-          playingStarted,
-          playingSong,
-          nextSong,
-        })
         
-        // Update vote
-        this.getUserVote()
+        // Schedule next check
+        setTimeout(
+          () => {
+            this.getPlayingSong()
+          },
+          parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted) + 0.5
+        );
+      } else {
+        // Schedule next check
+        setTimeout(
+          () => {
+            this.getPlayingSong()
+          },
+          1
+        );
       }
-      
-      // Schedule next check
-      setTimeout(
-        () => {
-          this.getPlayingSong()
-        },
-        parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted) + 0.5
-      );
     })
     .catch((error) => {
       console.log(error)

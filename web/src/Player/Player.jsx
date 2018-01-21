@@ -4,6 +4,13 @@ import axios from 'axios'
 import './Player.css'
 
 class Player extends Component {
+  constructor(props) {
+    super(props)
+    
+    this.state = {
+      currentLine: null
+    }
+  }
   componentWillUpdate (nextProps, nextState) {
     let found = false
     nextProps.lyrics.forEach((item, i) => {
