@@ -36,6 +36,9 @@ try {
     $json['msg'] = $e->getMessage();
 }
 
+
+header('Content-type: text/html; charset=utf-8');
+
 echo file_get_contents('web/build/index.html');
 
 ?>
