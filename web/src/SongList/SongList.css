@@ -40,11 +40,12 @@
 
 .list__item__f {
   text-align: center;
-  flex: 0 0 30px;
+  flex: 0 0 10px;
 }
 
 .next {
-  transform: rotate(90deg);
+  transform: rotate(-90deg) translate(-20px, 5px);
+  width: 10px;
   font-family: 'Montserrat', sans-serif;
   font-size: 11px;
 }
