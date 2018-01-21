@@ -1,8 +1,177 @@
 
-.SplashScreen {
-  width: 100%;
-  height: 100%;
-  background-image: url(/public/SplashImage.png);
-  cursor: pointer;
-  background-size: cover;
+
+.bothImgs {
+    position: relative;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.topImg {
+    top: 0;
+    left: 0;
+}
+
+.bottomImg {
+    bottom: 0;
+    left: 0;
+}
+
+.centerTitle {
+    text-align: center;
+    color: rgb(237, 0, 47);
+    position: absolute;
+    top: 43.5%;
+    left: 51%;
+    transform: rotate(-15deg) translate(-50%, -50%);
+}
+
+.centerTitle--anim {
+    -webkit-animation: cenTit 1s ease-in;
+    -webkit-animation-delay: 1s;
+    animation: cenTit 1s ease-in;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;  
+}
+
+.title1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    white-space: nowrap;
+}
+
+.title2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    white-space: nowrap;
+    line-height: -1px;
+}
+
+.bottomDiamonds {
+	position: absolute;
+	bottom:  -10px;
+	z-index: -1;
+}
+
+.topDiamonds {
+	position: absolute;
+	right:  80px;
+	top: 220px;
+	z-index: -1;
+}
+
+.diamondContainer {
+	position: absolute;
+}
+
+.diamond {
+	width: 45px;
+	height: 25px;
+	-webkit-transform: rotate(90deg) skew(-60deg);
+	   -moz-transform: rotate(90deg) skew(-60deg);
+	     -o-transform: rotate(90deg) skew(-60deg);
+	transform: rotate(90deg) skew(-60deg);
+	background: rgb(0, 96, 182);
+}
+
+.bottomContent {
+    position: absolute;
+    bottom: 0px;
+}
+
+.bottomContent--anim {
+    -webkit-animation: animBot 1s ease-in;
+    -webkit-animation-delay: 0.75s;
+    animation: animBot 1s ease-in;
+    animation-delay: 0.75s;
+    animation-fill-mode: forwards;  
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes animBot {
+  100% {
+    bottom: -400px;
+  }
+}
+
+/* Standard syntax */
+@keyframes animBot {
+  100% {
+    bottom: -400px;
+  }
+}
+
+.topContent {
+    position: absolute;
+    top: 0px;
+}
+
+.topContent--anim {
+  -webkit-animation: animTop 1s ease-in;
+  -webkit-animation-delay: 0.75s;
+  animation: animTop 1s ease-in;
+  animation-delay: 0.75s;
+  animation-fill-mode: forwards;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes animTop {
+  100% {
+    top: -400px;
+  }
+}
+
+/* Standard syntax */
+@keyframes animTop {
+  100% {
+    top: -400px;
+  }
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes cenTit {
+  100% {
+    -webkit-transform: translate(100%, 0%);
+  }
+}
+
+/* Standard syntax */
+@keyframes cenTit {
+  100% {
+    transform: translate(100%, 0%);
+  }
+}
+
+.loading {
+  display: inline-block;
+	bottom: 20px;
+	right: 20px;
+	border-radius: 50%;
+	width: 35px;
+	height: 35px;
+	border: .5rem solid rgba(255, 255, 255, 0.5);
+	border-top-color: rgb(255, 255, 255);
+	animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadContainer {
+  	position: absolute;
+  	bottom: 20px;
+  	right: 20px;
+    z-index: 10;
+}
+
+.loadSentence {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 45px;
+    display: inline-block;
+    color: rgb(255, 255, 255);
 }

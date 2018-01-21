@@ -245,9 +245,25 @@ class App extends Component {
               <div>
                 <SplashScreen onClick={() => {
                   this.state.status = 'playing'
-                  this.setState({ status: 'playing', currentView: 'songlist' })
+                  this.setState({ status: 'playing' })
+                  setTimeout(() => {
+                    this.setState({ currentView: 'songlist' })
+                  }, 1000)
                   this.playAudio()
                 }} />
+                <SongList
+                  onStream={() => ( this.setState({ currentView: 'streaming' }) ) }
+                  songs={this.state.songs}
+                  currentVote={this.state.currentVote}
+                  postVote={this.postVote}
+                  playingSong={this.state.playingSong}
+                  nextSong={this.state.nextSong}
+                />
+                <Player
+                  currentTime={this.state.currentTime}
+                  currentSong={this.state.songs.find((item) => (item.song_id === this.state.playingSong)) || {}}
+                  lyrics={this.state.lyrics}
+                />
               </div>
             );
           } else if (this.state.currentView === 'songlist') {
