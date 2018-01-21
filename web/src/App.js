@@ -203,10 +203,13 @@ class App extends Component {
   playAudio (playingStarted) {
     if (this.state.status === 'playing') {
       console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
+
+      let time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+      this.audio.currentTime = time / 1000
       
       this.audio.play()
 
-      const time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+      time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
       this.audio.currentTime = time / 1000
     }
   }
