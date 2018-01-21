@@ -4,7 +4,7 @@ require('api/v1/global.php');
 $json = array();
 
 try {
-    $conn  = new PDO('pgsql:host='.setting::db_host.';port='.setting::db_port.';dbname='.setting::db_name.';user='.setting::db_user.';password='.setting::db_pass);
+    $conn  = new PDO('mysql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $need_set_cookie = false;
@@ -21,7 +21,7 @@ try {
     if ($need_set_cookie == true) {
         $query = 'INSERT INTO user(user_vote) VALUES(NULL)';
         $res   = $conn->query($query);
-        $query = 'RETURNING user_id';
+        $query = 'SELECT LAST_INSERT_ID()';
         $res   = $conn->query($query);
         $row   = $res->fetch();
         $json['ret'] = true;
