@@ -39,7 +39,6 @@ class App extends Component {
       nextSongBlob: null,
       lyrics: [],
       nextLyrics: [],
-      currentTime: 0,
       timeOutGetPlayingSong: null,
     }
 
@@ -239,6 +238,7 @@ class App extends Component {
     
     const time = this.serverTime.valueOf() - (this.state.playingStarted)
     console.log('go to second handlePlay', time / 1000)
+    console.log('readyState:', this.audio.readyState)
     this.audio.currentTime = time / 1000
   }
 
@@ -309,6 +309,7 @@ class App extends Component {
           onPause={this.handlePause}
           onPlay={this.handlePlay}
           onLoadedMetadata={this.handleLoadMetadata}
+          onLoad={this.handleLoadMetadata}
         />
       </div>
     )
