@@ -112,25 +112,17 @@ class App extends Component {
           nextSong,
         })
         
-        // Schedule next check
-        setTimeout(
-          () => {
-            this.getPlayingSong()
-          },
-          parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted) + 0.5
-        );
-        
         // Update vote
         this.getUserVote()
-      } else {
-        // If the song is the same, keep cheking after it changes
-        setTimeout(
-          () => {
-            this.getPlayingSong()
-          },
-          1
-        );
       }
+      
+      // Schedule next check
+      setTimeout(
+        () => {
+          this.getPlayingSong()
+        },
+        parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted) + 0.5
+      );
     })
     .catch((error) => {
       console.log(error)
