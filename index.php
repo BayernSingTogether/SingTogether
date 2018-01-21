@@ -4,7 +4,7 @@ require('api/v1/global.php');
 $json = array();
 
 try {
-    $conn  = new PDO('mysql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
+    $conn  = new PDO('pgsql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $need_set_cookie = false;

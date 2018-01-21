@@ -6,7 +6,7 @@ if (!isset($_COOKIE["user"])) {
     $json['msg'] = 'cookie `user` not set yet';
 } else {
     try {
-        $conn  = new PDO('mysql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
+        $conn  = new PDO('pgsql:host='.setting::db_host.';dbname='.setting::db_name, setting::db_user, setting::db_pass);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = 'SELECT user_vote FROM user WHERE user_id='.$_COOKIE["user"];
         $res   = $conn->query($query);
