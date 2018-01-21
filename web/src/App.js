@@ -25,6 +25,7 @@ class App extends Component {
     this.getUserVote = this.getUserVote.bind(this)
     this.handlePause = this.handlePause.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
+    this.handleLoadMetadata = this.handleLoadMetadata.bind(this)
     
     this.state = {
       status: 'paused',
@@ -220,17 +221,17 @@ class App extends Component {
       // this.audio.currentTime = time / 1000
       
       this.audio.play()
-      
-      this.audio.on('loadedmetadata', () => {
-        console.log('loadedmetadata!!')
-        let time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
-        this.audio.currentTime = time / 1000
-      })
 
       // time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
       // console.log('go to second playAudio2', time / 1000)
       // this.audio.currentTime = time / 1000
     }
+  }
+  
+  handleLoadMetadata () {
+    console.log('loadedmetadata!!')
+    let time = this.serverTime.valueOf() - (this.state.playingStarted)
+    this.audio.currentTime = time / 1000
   }
   
   handlePause () {
@@ -311,7 +312,12 @@ class App extends Component {
             )
           }
         })()}
-        <audio ref={(ref) => (this.audio = ref)} onPause={this.handlePause} onPlay={this.handlePlay} />
+        <audio
+          ref={(ref) => (this.audio = ref)}
+          onPause={this.handlePause}
+          onPlay={this.handlePlay}
+          onLoadedMetadata={this.handleLoadMetadata}
+        />
       </div>
     )
   }
