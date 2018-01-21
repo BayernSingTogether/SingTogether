@@ -132,7 +132,7 @@ class App extends Component {
             () => {
               this.getPlayingSong()
             },
-            (parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted)/1000 + 0.5)*1000
+            (parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted)/1000 - 0.5)*1000
           )
         })
       } else {
@@ -238,6 +238,7 @@ class App extends Component {
       // console.log('go to second handlePlay', time / 1000)
       // console.log('readyState:', this.audio.readyState)
       
+      console.log('songChanged, setTime to ', time)
       if (time > 0) {
         // Set the currenTime and make sure to play!
         this.audio.currentTime = time / 1000
