@@ -4,6 +4,28 @@ import axios from 'axios'
 import './Player.css'
 
 class Player extends Component {
+  constructor(props) {
+    super(props)
+    
+    this.state = {
+      currentLine: null
+    }
+  }
+
+  componentWillUpdate (nextProps, nextState) {
+    let found = false
+    nextProps.lyrics.forEach((item, i) => {
+      if (found === false && item[0] >= nextProps.currentTime) {
+        found = true
+        if (this.state.currentLine !== i - 1) {
+          this.setState({
+            currentLine: i - 1,
+          })
+        }
+      }
+    })
+  }
+
   render() {
     return (
       <nav class="playing">
@@ -13,9 +35,9 @@ class Player extends Component {
           <div class="playing__ball" style={{ left: window.innerWidth * this.props.currentTime / parseFloat(this.props.currentSong.song_length) }} />
         </div>
         <div class="playing__lyrics">
-          <div class="playing__lyrics__scroll" style={{ marginTop: 20-29*this.props.currentLine }}>
+          <div class="playing__lyrics__scroll" style={{ marginTop: 20-29*this.state.currentLine }}>
             {this.props.lyrics.map((item, i) => {
-              if (this.props.currentLine === i) {
+              if (this.state.currentLine === i) {
                 return (
                   <div key={i} class="playing__lyrics__line playing__lyrics__line--current">{item[1]}</div>
                 )

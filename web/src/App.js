@@ -22,8 +22,12 @@ class App extends Component {
     this.downloadLyrics = this.downloadLyrics.bind(this)
     this.setPlayingSong = this.setPlayingSong.bind(this)
     this.playAudio = this.playAudio.bind(this)
+    this.getUserVote = this.getUserVote.bind(this)
+    this.handlePause = this.handlePause.bind(this)
+    this.handlePlay = this.handlePlay.bind(this)
     
     this.state = {
+      status: 'paused',
       currentView: 'splashscreen',
       currentTime: 0,
       currentVote: null,
@@ -32,15 +36,14 @@ class App extends Component {
       playingSong: null,
       nextSong: null,
       nextSongBlob: null,
-      currentLine: 0,
       lyrics: [],
       nextLyrics: [],
       currentTime: 0,
+      timeOutGetPlayingSong: null,
     }
 
     const x = setInterval(() => {
       this.getSongsList()
-      this.getPlayingSong()
       
       /// TEST MOCKUP
       this.setState({
@@ -62,6 +65,23 @@ class App extends Component {
             return item
           })
       })
+
+      if (this.state.playingSong === null) {
+        console.log('playing song', this.state.playingSong)
+        this.getPlayingSong()
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+  
+  getUserVote () {
+    axios.get('/api/v1/get_my_vote.php')
+    .then((response) => {
+      this.setState({
+        currentVote: parseInt((response.data || {}).user_vote) || null
+      })
     })
     .catch((error) => {
       console.log(error)
@@ -75,23 +95,52 @@ class App extends Component {
       const playingSong = parseInt((response.data || {}).room_playing_song_id)
       const nextSong = parseInt((response.data || {}).room_next_song_id)
       
-      if (playingStarted !== this.state.playingStarted && this.state.songs.length !== 0) {
-        if (playingSong === this.state.nextSong) {
-          this.setState({
-            lyrics: this.state.nextLyrics
-          })
-          this.setPlayingSong(this.state.nextSongBlob)
-          this.playAudio(playingStarted)
-          this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
-        } else {
-          this.downloadSongAndLyrics('current', this.state.songs.find((item) => (item.song_id === playingSong)) || {})
-          this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
-        }
+      if (this.state.songs.length !== 0) {
+        const currentSongDetails = this.state.songs.find((item) => (item.song_id === playingSong)) || {}
+        if (playingStarted !== this.state.playingStarted) {
 
+          if (playingSong === this.state.nextSong) {
+            this.setState({
+              lyrics: this.state.nextLyrics
+            })
+            this.setPlayingSong(this.state.nextSongBlob)
+            this.playAudio(playingStarted)
+            this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
+          } else {
+            this.downloadSongAndLyrics('current', currentSongDetails)
+            this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
+          }
+
+          this.setState({
+            playingStarted,
+            playingSong,
+            nextSong,
+          })
+          
+          // Update vote
+          this.getUserVote()
+        }
+        
+        // Schedule next check
+        clearTimeout(this.state.timeOutGetPlayingSong)
         this.setState({
-          playingStarted,
-          playingSong,
-          nextSong,
+          timeOutGetPlayingSong: setTimeout(
+            () => {
+              this.getPlayingSong()
+            },
+            (parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted)/1000 + 0.5)*1000
+          )
+        })
+      } else {
+        // Schedule next check
+        clearTimeout(this.state.timeOutGetPlayingSong)
+        this.setState({
+          timeOutGetPlayingSong: setTimeout(
+            () => {
+              this.getPlayingSong()
+            },
+            1*1000
+          )
         })
       }
     })
@@ -134,23 +183,11 @@ class App extends Component {
   }
 
   downloadLyrics (songType, url) {
-    this.setState({
-      lyrics: []
-    })
-
     axios.get(url)
     .then((response) => {
       if (songType === 'current') {
-        let currentLine = false
-        response.data.forEach((item, i) => {
-          if (currentLine === false && item[0] > this.state.currentTime) {
-            currentLine = i
-          }
-        })
-
         this.setState({
           lyrics: response.data || [],
-          currentLine,
         })
       } else {
         this.setState({
@@ -164,11 +201,28 @@ class App extends Component {
   }
   
   playAudio (playingStarted) {
-    console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
+    if (this.state.status === 'playing') {
+      console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
+      
+      this.audio.play()
+
+      const time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+      this.audio.currentTime = time / 1000
+    }
+  }
+  
+  handlePause () {
+    this.setState({
+      status: 'paused',
+    })
+  }
+  
+  handlePlay () {
+    this.setState({
+      status: 'playing',
+    })
     
-    this.audio.play()
-    
-    const time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+    const time = this.serverTime.valueOf() - (this.state.playingStarted)
     this.audio.currentTime = time / 1000
   }
 
@@ -180,7 +234,8 @@ class App extends Component {
             return (
               <div>
                 <SplashScreen onClick={() => {
-                  this.setState({ currentView: 'songlist' })
+                  this.state.status = 'playing'
+                  this.setState({ status: 'playing', currentView: 'songlist' })
                   this.playAudio()
                 }} />
               </div>
@@ -197,7 +252,6 @@ class App extends Component {
                 <Player
                   currentTime={this.state.currentTime}
                   currentSong={this.state.songs.find((item) => (item.song_id === this.state.playingSong)) || {}}
-                  currentLine={this.state.currentLine}
                   lyrics={this.state.lyrics}
                 />
               </div>
@@ -216,7 +270,7 @@ class App extends Component {
             )
           }
         })()}
-        <audio ref={(ref) => (this.audio = ref)} />
+        <audio ref={(ref) => (this.audio = ref)} onPause={this.handlePause} onPlay={this.handlePlay} />
       </div>
     )
   }
