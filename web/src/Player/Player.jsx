@@ -28,22 +28,22 @@ class Player extends Component {
 
   render() {
     return (
-      <nav class="playing">
-        <div class="playing__song">
-          <div class="playing__artist">{this.props.currentSong.song_artist}</div>
-          <div class="playing__name">{this.props.currentSong.song_name}</div>
-          <div class="playing__ball" style={{ left: window.innerWidth * this.props.currentTime / parseFloat(this.props.currentSong.song_length) }} />
+      <nav className="playing">
+        <div className="playing__song">
+          <div className="playing__artist">{this.props.currentSong.song_artist}</div>
+          <div className="playing__name">{this.props.currentSong.song_name}</div>
+          <div className="playing__ball" style={{ left: window.innerWidth * (this.props.currentTime || 0) / parseFloat((this.props.currentSong.song_length ||1 )) }} />
         </div>
-        <div class="playing__lyrics">
-          <div class="playing__lyrics__scroll" style={{ marginTop: 20-29*this.state.currentLine }}>
+        <div className="playing__lyrics">
+          <div className="playing__lyrics__scroll" style={{ marginTop: 20-29*this.state.currentLine }}>
             {this.props.lyrics.map((item, i) => {
               if (this.state.currentLine === i) {
                 return (
-                  <div key={i} class="playing__lyrics__line playing__lyrics__line--current">{item[1]}</div>
+                  <div key={i} className="playing__lyrics__line playing__lyrics__line--current">{item[1]}</div>
                 )
               } else {
                 return (
-                  <div key={i} class="playing__lyrics__line">{item[1]}</div>
+                  <div key={i} className="playing__lyrics__line">{item[1]}</div>
                 )
               }
             })}

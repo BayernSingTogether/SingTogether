@@ -76,49 +76,49 @@ class SplashScreen extends Component {
         >
           <img className="bothImgs bottomImg" src="bottom.png"></img>
           <div className="bottomDiamonds">
-            <div style="left:-25px;bottom:15px;" className="diamondContainer">
+            <div style={{ left:-25, bottom: 15 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:0px;bottom:15px;" className="diamondContainer">
+            <div style={{ left:0, bottom: 15 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:25px;bottom:15px;" className="diamondContainer">
+            <div style={{ left:25, bottom: 15 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:50px;bottom:15px;" className="diamondContainer">
+            <div style={{ left:50, bottom: 15 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:-25px;bottom:100px;" className="diamondContainer">
+            <div style={{ left:-25, bottom: 100 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:0px;bottom:100px;" className="diamondContainer">
+            <div style={{ left:0, bottom: 100 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:25px;bottom:100px;" className="diamondContainer">
+            <div style={{ left:25, bottom: 100 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:50px;bottom:100px;" className="diamondContainer">
+            <div style={{ left:50, bottom: 100 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:-25px;bottom:185px;" className="diamondContainer">
+            <div style={{ left:-25, bottom: 185 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:0px;bottom:185px;" className="diamondContainer">
+            <div style={{ left:0, bottom: 185 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:25px;bottom:185px;" className="diamondContainer">
+            <div style={{ left:25, bottom: 185 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:50px;bottom:185px;" className="diamondContainer">
+            <div style={{ left:50, bottom: 185 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:-25px;bottom:270px;" className="diamondContainer">
+            <div style={{ left:-25, bottom: 270 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:0px;bottom:270px;" className="diamondContainer">
+            <div style={{ left:0, bottom: 270 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:-25px;bottom:355px;" className="diamondContainer">
+            <div style={{ left:-25, bottom: 355 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
           </div>
@@ -130,49 +130,49 @@ class SplashScreen extends Component {
           }
         >
           <div className="topDiamonds">
-            <div style="left:50px;bottom:-155px;" className="diamondContainer">
+            <div style={{ left:50, bottom:-155 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:25px;bottom:-70px;" className="diamondContainer">
+            <div style={{ left:25, bottom:-70 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:50px;bottom:-70px;" className="diamondContainer">
+            <div style={{ left:50, bottom:-70 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:-25px;bottom:15px;" className="diamondContainer">
+            <div style={{ left:-25, bottom:15 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:0px;bottom:15px;" className="diamondContainer">
+            <div style={{ left:0, bottom:15 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:25px;bottom:15px;" className="diamondContainer">
+            <div style={{ left:25, bottom:15 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:50px;bottom:15px;" className="diamondContainer">
+            <div style={{ left:50, bottom:15 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:-25px;bottom:100px;" className="diamondContainer">
+            <div style={{ left:-25, bottom:100 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:0px;bottom:100px;" className="diamondContainer">
+            <div style={{ left:0, bottom:100 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:25px;bottom:100px;" className="diamondContainer">
+            <div style={{ left:25, bottom:100 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:50px;bottom:100px;" className="diamondContainer">
+            <div style={{ left:50, bottom:100 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:-25px;bottom:185px;" className="diamondContainer">
+            <div style={{ left:-25, bottom:185 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:0px;bottom:185px;" className="diamondContainer">
+            <div style={{ left:0, bottom:185 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:25px;bottom:185px;" className="diamondContainer">
+            <div style={{ left:25, bottom:185 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
-            <div style="left:50px;bottom:185px;" className="diamondContainer">
+            <div style={{ left:50, bottom:185 }} className="diamondContainer">
               <div className="diamond"></div>
             </div>
           </div>
