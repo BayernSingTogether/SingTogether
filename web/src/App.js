@@ -26,7 +26,6 @@ class App extends Component {
     this.handlePause = this.handlePause.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
     this.handleLoadMetadata = this.handleLoadMetadata.bind(this)
-    this.handleReadyStateChange = this.handleReadyStateChange.bind(this)
     this.handleCanPlayThrough = this.handleCanPlayThrough.bind(this)
     
     this.state = {
@@ -244,10 +243,6 @@ class App extends Component {
     this.audio.currentTime = time / 1000
   }
   
-  handleReadyStateChange (e) {
-    console.log('new ready state', e.target.readyState)
-  }
-  
   handleCanPlayThrough (e) {
     console.log('puedo reproducir', e.target.readyState)
   }
@@ -315,7 +310,7 @@ class App extends Component {
           }
         })()}
         <audio
-          ref={(ref) => { this.audio = ref; window.aaa = ref; ref.onreadystatechange = this.handleReadyStateChange }}
+          ref={(ref) => { this.audio = ref; window.aaa = ref }}
           onPause={this.handlePause}
           onPlay={this.handlePlay}
           onLoadedMetadata={this.handleLoadMetadata}
