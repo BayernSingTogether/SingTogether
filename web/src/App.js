@@ -124,6 +124,9 @@ class App extends Component {
           },
           parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted) + 0.5
         );
+        console.log('get next song', parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted) + 0.5)
+        console.log('length', parseFloat(currentSongDetails.song_length))
+        console.log('current', (this.serverTime.valueOf() - playingStarted) + 0.5)
       } else {
         // Schedule next check
         setTimeout(
