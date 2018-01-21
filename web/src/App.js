@@ -22,6 +22,7 @@ class App extends Component {
     this.downloadLyrics = this.downloadLyrics.bind(this)
     this.setPlayingSong = this.setPlayingSong.bind(this)
     this.playAudio = this.playAudio.bind(this)
+    this.getUserVote = this.getUserVote.bind(this)
     
     this.state = {
       currentView: 'splashscreen',
@@ -40,7 +41,6 @@ class App extends Component {
 
     const x = setInterval(() => {
       this.getSongsList()
-      this.getPlayingSong()
       
       /// TEST MOCKUP
       this.setState({
@@ -62,6 +62,22 @@ class App extends Component {
             return item
           })
       })
+
+      if (this.state.playingSong === null) {
+        this.getPlayingSong()
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+  
+  getUserVote () {
+    axios.get('/api/v1/get_my_vote.php')
+    .then((response) => {
+      this.setState({
+        currentVote: (response.data || {}).user_vote || null
+      })
     })
     .catch((error) => {
       console.log(error)
@@ -76,6 +92,8 @@ class App extends Component {
       const nextSong = parseInt((response.data || {}).room_next_song_id)
       
       if (playingStarted !== this.state.playingStarted && this.state.songs.length !== 0) {
+        const currentSongDetails = this.state.songs.find((item) => (item.song_id === playingSong)) || {}
+
         if (playingSong === this.state.nextSong) {
           this.setState({
             lyrics: this.state.nextLyrics
@@ -84,7 +102,7 @@ class App extends Component {
           this.playAudio(playingStarted)
           this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
         } else {
-          this.downloadSongAndLyrics('current', this.state.songs.find((item) => (item.song_id === playingSong)) || {})
+          this.downloadSongAndLyrics('current', currentSongDetails)
           this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
         }
 
@@ -93,6 +111,25 @@ class App extends Component {
           playingSong,
           nextSong,
         })
+        
+        // Schedule next check
+        setTimeout(
+          () => {
+            this.getPlayingSong()
+          },
+          parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted) + 0.5
+        );
+        
+        // Update vote
+        this.getUserVote()
+      } else {
+        // If the song is the same, keep cheking after it changes
+        setTimeout(
+          () => {
+            this.getPlayingSong()
+          },
+          1
+        );
       }
     })
     .catch((error) => {
