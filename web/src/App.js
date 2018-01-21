@@ -218,30 +218,42 @@ class App extends Component {
     })
   }
   
-  handlePlay () {
+  handlePlay (e) {
     this.setState({
       status: 'playing',
     })
     
-    
-    const time = this.serverTime.valueOf() - (this.state.playingStarted)
-    this.audio.currentTime = time / 1000
-    // console.log('go to second handlePlay', time / 1000)
-    // console.log('readyState:', this.audio.readyState)
+    // Set the current time only if play is user initated
+    if (typeof e.which === 'undefined') {
+      const time = this.serverTime.valueOf() - (this.state.playingStarted)
+      this.audio.currentTime = time / 1000
+      // console.log('go to second handlePlay', time / 1000)
+      // console.log('readyState:', this.audio.readyState)
+    }
   }
   
   handleCanPlayThrough (e) {
     if (!this.hasPlayedThrough) {
-      if (this.state.status === 'playing' && this.audio.paused === true) {
-        this.audio.play()
-      }
-      console.log('puedo reproducir', e.target.readyState)
       const time = this.serverTime.valueOf() - (this.state.playingStarted)
       // console.log('go to second handlePlay', time / 1000)
       // console.log('readyState:', this.audio.readyState)
-      this.audio.currentTime = time / 1000
-  
-      this.hasPlayedThrough = true
+      
+      if (time > 0) {
+        // Set the currenTime and make sure to play!
+        this.audio.currentTime = time / 1000
+    
+        this.hasPlayedThrough = true
+        if (this.state.status === 'playing' && this.audio.paused === true) {
+          this.audio.play()
+        }
+        console.log('puedo reproducir', e.target.readyState)
+      } else {
+        // Schedule to play
+        setTimeout(
+          this.playAudio,
+          time
+        )
+      }
     }
   }
 
