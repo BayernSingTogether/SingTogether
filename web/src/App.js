@@ -137,6 +137,7 @@ class App extends Component {
         console.log('current', (this.serverTime.valueOf() - playingStarted)/1000 + 0.5)
       } else {
         // Schedule next check
+        console.log('schedule playing song')
         clearTimeout(this.state.timeOutGetPlayingSong)
         this.setState({
           timeOutGetPlayingSong: setTimeout(
@@ -230,7 +231,7 @@ class App extends Component {
       status: 'playing',
     })
     
-    const time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+    const time = this.serverTime.valueOf() - (this.state.playingStarted)
     this.audio.currentTime = time / 1000
   }
 
