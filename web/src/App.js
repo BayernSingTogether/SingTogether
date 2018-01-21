@@ -315,7 +315,7 @@ class App extends Component {
           }
         })()}
         <audio
-          ref={(ref) => { this.audio = ref; window.aaa = ref; this.audio.onreadystatechange = this.handleReadyStateChange }}
+          ref={(ref) => { this.audio = ref; window.aaa = ref; ref.onreadystatechange = this.handleReadyStateChange }}
           onPause={this.handlePause}
           onPlay={this.handlePlay}
           onLoadedMetadata={this.handleLoadMetadata}
