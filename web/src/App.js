@@ -23,8 +23,11 @@ class App extends Component {
     this.setPlayingSong = this.setPlayingSong.bind(this)
     this.playAudio = this.playAudio.bind(this)
     this.getUserVote = this.getUserVote.bind(this)
+    this.handlePause = this.handlePause.bind(this)
+    this.handlePlay = this.handlePlay.bind(this)
     
     this.state = {
+      status: 'paused',
       currentView: 'splashscreen',
       currentTime: 0,
       currentVote: null,
@@ -36,6 +39,7 @@ class App extends Component {
       lyrics: [],
       nextLyrics: [],
       currentTime: 0,
+      timeOutGetPlayingSong: null,
     }
 
     const x = setInterval(() => {
@@ -63,6 +67,7 @@ class App extends Component {
       })
 
       if (this.state.playingSong === null) {
+        console.log('playing song', this.state.playingSong)
         this.getPlayingSong()
       }
     })
@@ -117,24 +122,30 @@ class App extends Component {
         }
         
         // Schedule next check
-        setTimeout(
-          () => {
-            this.getPlayingSong()
-          },
-          parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted)/1000 + 0.5
-        );
-        
+        clearTimeout(this.state.timeOutGetPlayingSong)
+        this.setState({
+          timeOutGetPlayingSong: setTimeout(
+            () => {
+              this.getPlayingSong()
+            },
+            parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted)/1000 + 0.5
+          )
+        })
+
         console.log('get next song', parseFloat(currentSongDetails.song_length) - (this.serverTime.valueOf() - playingStarted)/1000 + 0.5)
         console.log('length', parseFloat(currentSongDetails.song_length))
         console.log('current', (this.serverTime.valueOf() - playingStarted)/1000 + 0.5)
       } else {
         // Schedule next check
-        setTimeout(
-          () => {
-            this.getPlayingSong()
-          },
-          1
-        );
+        clearTimeout(this.state.timeOutGetPlayingSong)
+        this.setState({
+          timeOutGetPlayingSong: setTimeout(
+            () => {
+              this.getPlayingSong()
+            },
+            1
+          )
+        })
       }
     })
     .catch((error) => {
@@ -198,9 +209,26 @@ class App extends Component {
   }
   
   playAudio (playingStarted) {
-    console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
-    
-    this.audio.play()
+    if (this.state.status === 'playing') {
+      console.log('server time', playingStarted || this.state.playingStarted, 'local time', this.serverTime)
+      
+      this.audio.play()
+
+      const time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
+      this.audio.currentTime = time / 1000
+    }
+  }
+  
+  handlePause () {
+    this.setState({
+      status: 'paused',
+    })
+  }
+  
+  handlePlay () {
+    this.setState({
+      status: 'playing',
+    })
     
     const time = this.serverTime.valueOf() - (playingStarted || this.state.playingStarted)
     this.audio.currentTime = time / 1000
@@ -214,7 +242,8 @@ class App extends Component {
             return (
               <div>
                 <SplashScreen onClick={() => {
-                  this.setState({ currentView: 'songlist' })
+                  this.status = 'playing'
+                  this.setState({ status: 'playing', currentView: 'songlist' })
                   this.playAudio()
                 }} />
               </div>
@@ -249,7 +278,7 @@ class App extends Component {
             )
           }
         })()}
-        <audio ref={(ref) => (this.audio = ref)} />
+        <audio ref={(ref) => (this.audio = ref)} onPause={this.handlePause} onPlay={this.handlePlay} />
       </div>
     )
   }
