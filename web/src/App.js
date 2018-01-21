@@ -238,7 +238,6 @@ class App extends Component {
       // console.log('go to second handlePlay', time / 1000)
       // console.log('readyState:', this.audio.readyState)
       
-      console.log('songChanged, setTime to ', time)
       if (time > 0) {
         // Set the currenTime and make sure to play!
         this.audio.currentTime = time / 1000
@@ -249,6 +248,7 @@ class App extends Component {
         }
         console.log('puedo reproducir', e.target.readyState)
       } else {
+        this.audio.currentTime = 0
         // Schedule to play
         setTimeout(
           this.playAudio,
