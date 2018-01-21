@@ -49,7 +49,7 @@ class SplashScreen extends Component {
                 case 7: return 'Syncronizing...😡'
                 case 8: return 'Syncronizing...🤬'
                 case 9: return 'Syncronizing...🤯'
-                default: '👉Klick hier👈'
+                default: return '👉Klick hier👈'
               }
             })()}
           </div>
