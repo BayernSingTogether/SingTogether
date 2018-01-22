@@ -32,7 +32,7 @@ try {
         $row   = $res->fetch();
         if ($row[0] == NULL)
             $row[0] = 1;
-        $millisecond_with_timeout = $millisecond + 5 * 1000;
+        $millisecond_with_timeout = $millisecond + 3 * 1000;
         $query = 'UPDATE room SET room_playing_song_id = '.$room_next_song_id.', room_playing_song_timestrap = '.$millisecond_with_timeout.', room_next_song_id = '.$row[0].' WHERE room_id = 1';
         $res   = $conn->query($query);
         
