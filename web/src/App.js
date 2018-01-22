@@ -108,6 +108,8 @@ class App extends Component {
             
             this.setPlayingSong(this.state.nextSongBlob)
             this.hasPlayedThrough = false
+            setTimeout(this.handleCanPlayThrough, 200)
+            
 
             this.downloadSongAndLyrics('next', this.state.songs.find((item) => (item.song_id === nextSong)) || {})
           } else {
@@ -237,18 +239,20 @@ class App extends Component {
       const time = this.serverTime.valueOf() - (this.state.playingStarted)
       // console.log('go to second handlePlay', time / 1000)
       // console.log('readyState:', this.audio.readyState)
-      
+
+      this.hasPlayedThrough = true
+
       if (time > 0) {
         // Set the currenTime and make sure to play!
         this.audio.currentTime = time / 1000
     
-        this.hasPlayedThrough = true
         if (this.state.status === 'playing' && this.audio.paused === true) {
           this.audio.play()
         }
         console.log('puedo reproducir', e.target.readyState)
       } else {
         this.audio.currentTime = 0
+
         // Schedule to play
         setTimeout(
           () => {
