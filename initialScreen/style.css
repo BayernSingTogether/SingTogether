@@ -46,6 +46,7 @@ body {
     -webkit-animation-delay: 1s;
     animation: cenTit 2s ease;
     animation-delay: 1s;
+    animation-fill-mode: forwards;
 }
 
 .title1 {
@@ -95,18 +96,19 @@ body {
     -webkit-animation-delay: 0.75s;
     animation: animBot 3s ease;
     animation-delay: 0.75s;
+    animation-fill-mode: forwards;
 }
 
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes animBot {
-  50% {
+  100% {
     bottom: -400px;
   }
 }
 
 /* Standard syntax */
 @keyframes animBot {
-  50% {
+  100% {
     bottom: -400px;
   }
 }
@@ -118,32 +120,33 @@ body {
     -webkit-animation-delay: 0.75s;
     animation: animTop 3s ease;
     animation-delay: 0.75s;
+    animation-fill-mode: forwards;
 }
 
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes animTop {
-  50% {
+  100% {
     top: -400px;
   }
 }
 
 /* Standard syntax */
 @keyframes animTop {
-  50% {
+  100% {
     top: -400px;
   }
 }
 
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes cenTit {
-  50% {
+  100% {
     -webkit-transform: translate(100%, 0%);
   }
 }
 
 /* Standard syntax */
 @keyframes cenTit {
-  50% {
+  100% {
     transform: translate(100%, 0%);
   }
 }
